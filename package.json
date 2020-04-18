@@ -1,0 +1,23 @@
+{
+  "name": "SpiderBot-Code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "SpiderBot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpiderGamin/SpiderBot-Code.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SpiderGamin/SpiderBot-Code/issues"
+  },
+  "homepage": "https://github.com/SpiderGamin/SpiderBot-Code#readme",
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  }
+}
