@@ -105,6 +105,41 @@ client.on('message', message => {
 		    }
         break
 	    }
+        case "cal": {
+          let signs = {
+            "add": "+",
+            "sub": "-",
+            "mul": "x",
+            "div": "÷"
+          }
+          let [operation, operand1, operand2] = args
+          operand1 = parseInt(operand1), operand2 = parseInt(operand2)
+          let result
+          switch (operation.toLowerCase()) {
+            case "add": {
+              result = operand1 + operand2
+              break
+            }
+            case "sub": {
+              result = operand1 - operand2
+              break
+            }
+            case "mul": {
+              result = operand1 * operand2
+              break
+            }
+            case "div": {
+              result = operand1 / operand2
+              break
+            }
+            default: {
+              message.channel.send(`Use "${prefix}help cal" for the proper syntax.`)
+              return
+            }
+          }
+          message.channel.send(`${operand1} ${signs[operation.toLowerCase()]} ${operand2} = ${result}`)
+          break
+        }
         default:
         case 'help': {
 		    const embedt = new MessageEmbed()
