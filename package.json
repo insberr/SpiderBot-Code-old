@@ -1,7 +1,7 @@
 {
   "name": "SpiderBot-Code",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Discord Bot using discord.js, welcome SpiderBot!",
   "main": "SpiderBot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/SpiderGamin/SpiderBot-Code.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "SpiderGaming",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SpiderGamin/SpiderBot-Code/issues"
