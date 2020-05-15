@@ -1,4 +1,6 @@
 {
   "token": "TOKEN",
-  "prefix": "&"
+  "prefix": "&",
+  "bot-logs-channel": "//put the channel id for the bot logs",
+  "login-embed": "true //when the bot is run, send a message to the bot logs channel. set false to turn off"
 }
