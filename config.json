@@ -1,6 +1,7 @@
 {
-  "token": "TOKEN",
-  "prefix": "&",
-  "bot-logs-channel": "//put the channel id for the bot logs",
-  "login-embed": "true //when the bot is run, send a message to the bot logs channel. set false to turn off"
+	"prefix": "&",
+	"token": "",
+	"logChannel": "702973523169116290",
+	"botLoginMessage": true,
+	"adminOnly": false
 }

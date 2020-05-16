@@ -1,36 +1,52 @@
-// Import Discord.js
+// Import Discord.js And Config Stuff
 const Discord = require('discord.js');
-// Import configuration
-const { prefix, token } = require('./config.json');
-const savedEmbeds = require('./SpiderBot-Embeds.json');
 const client = new Discord.Client();
 const { Client, MessageEmbed } = require('discord.js');
 
-const fs = require('fs');
-// require('./econ.js')
+// Import Configuration Files
+const { prefix, token, logChannel, botLoginMessage, adminOnly } = require('./config.json');
+const botConfig = require('./config.json');
 
+// Embeded Messages
+const savedEmbeds = require('./SpiderBot-Embeds.json');
+
+// Files Management And Command Files
+const fs = require('fs');
+client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.name, command);
+}
+
+
+// When the bot logs in
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
+	// Bot Status
 	client.user.setActivity('Being Developed');
+	// Login Embeded Message
+	if (botLoginMessage === true) {
 		const embed = new MessageEmbed()
     	.setColor('#84FFFB')
-			.setTitle('SpiderBot Logged In')
-			.setAuthor(client.user.tag)
-			.setDescription('\u200B')
-			.setTimestamp()
-			.setFooter('Logged In');
-	client.channels.cache.get('699835374574370836').send(embed);
+		.setTitle(`SpiderBot Logged In`)
+		.setAuthor(client.user.tag)
+		.setDescription(`Prefix: ${prefix}\nLog Channel: ${logChannel}\nUse Perms: ${adminOnly}`)
+		.setTimestamp()
+		.setFooter('Logged In');
+		return client.channels.cache.get(logChannel).send(embed);
+	}
+	
 });
 
 
 client.on('message', message => {
+	// Message Contains
 	if (message.content.includes("School") || message.content.includes("school")) {
 			var badword = message.content;
-			message.channel.bulkDelete(1, true).catch(err => {
-				console.error(err);
-				message.channel.send('there was an error trying to prune messages in this channel!');
-
-			});
+			message.delete()
+				.then(message => console.log(`deleted message`))
+				.catch(console.error);
 			const replaceembed = new MessageEmbed()
 				.setColor('#ff0000')
 				.setAuthor(message.author.username, message.author.displayAvatarURL({
@@ -43,14 +59,24 @@ client.on('message', message => {
 				.setFooter(`Spider Bot`);
 
 			return message.channel.send(replaceembed);
-		}
-
+		};
+	
+	// Commands
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();
-
+	
+	if (!client.commands.has(command)) return;
+	try {
+		client.commands.get(command).execute(message, args, client);
+	} catch (error) {
+		console.error(error);
+		message.reply(`There was an error trying to execute that command!`);
+	}
+	/*
     switch (command) {
+		
 		case 'savedembed': {
 			if (!args.length) {
 				return message.channel.send(`You did not provide any arguments. Use \`\`\`${prefix}help savedembed\`\`\``)
@@ -86,6 +112,7 @@ client.on('message', message => {
 				})
 			}
 		}
+		
 		case 'embed': {
 			if (!args.length) {
 				return message.channel.send("You did not provide any arguments. " + `Do \`\`\`${prefix}help embed\`\`\``)
@@ -114,6 +141,7 @@ client.on('message', message => {
 				.setFooter(`Spider Bot | Custom Embed`)
 				return client.channels.cache.get(channelid).send(makeembed);
 		}
+		
 		case 'mode': {
 			if (!args.length) {
 				return message.channel.send('You didnt provide any argumets');
@@ -128,48 +156,17 @@ client.on('message', message => {
 			}
 		break
 		}
+		
         case 'sendterm': {
             console.log(args[0]);
         break
         }
-	    case 'ping': {
-		    message.channel.send('Pong.');
-        break
-        }
-        case 'add': {
-            if (!args.length) {
-		    	return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
-		    } else {
-				if (args[1] === 'undifined') {
-					var sol = parseInt(args[0]) + 0;
-                	return message.channel.send(`${args[0]} + 0 = ${sol}`);
-				} else {
-                	var sol = parseInt(args[0]) + parseInt(args[1]);
-					return message.channel.send(`${args[0]} + ${args[1]} = ${sol}`);
-				}
-            }
-        break
-	    }
-        case 'beep': {
-		    message.channel.send('Boop.');
-        break
-		}
         case 'server': {
 		    message.channel.send(`Server name: ${message.guild.name}\nTotal members: ${message.guild.memberCount}`);
         break
         }
         case 'user-info': {
 		    message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
-        break
-	    }
-        case 'info': {
-		    if (!args.length) {
-			    return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
-		    } else if (args[0] === 'foo') {
-		    	return message.channel.send('bar');
-		    }
-
-		    message.channel.send(`First argument: ${args[0]}`);
         break
 	    }
         case 'kick': {
@@ -193,7 +190,7 @@ client.on('message', message => {
 
 		    message.channel.send(avatarList);
         break
-	    }
+		}
         case 'prune': {
 		    const amount = parseInt(args[0]) + 1;
 
@@ -289,7 +286,9 @@ client.on('message', message => {
         }
     break
 	}
-}});
+}*/
+
+});
 
 client.login(token);
 
