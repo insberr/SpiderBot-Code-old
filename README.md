@@ -8,7 +8,7 @@ Invite the bot to your server! (link coming soon)
 <br>Make sure you have nodejs v12.0.0 or newer installed
 <br>Install discordjs using `npm install discord.js`
 <br>Go into the `config.json` file and replace `TOKEN` with your token. Save the file
-<br>To run SpiderBot, type `node SpiderBot.js` in the teminal. It should dispay a message saying ``Logged in as \<your_bots_username>``
+<br>To run SpiderBot, type `node SpiderBot.js` in the teminal. It should dispay a message saying ``Logged in as <your_bots_username>``
 
 # Bot Usage
 <br>The prefix is `&` by default and can be changed in the `config.json` file
@@ -16,7 +16,7 @@ Invite the bot to your server! (link coming soon)
 ## Commands
 <br>Key: \<required> [optional]
 <br>`botconfig` - Configure the bot using commands (not implemented yet)
-<br>`calculate` - Calculate something. Usage: &calculate <\operation> \<operand1> \<operand2>
+<br>`calculate` - Calculate something. Usage: `&calculate <operation> <operand1> <operand2>`
 <br>`embed`
 <br>`info`
 <br>`kick`
