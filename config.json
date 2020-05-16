@@ -1,6 +1,6 @@
 {
 	"prefix": "&",
-	"token": "",
+	"token": "TOUR_TOKEN_HERE",
 	"logChannel": "702973523169116290",
 	"botLoginMessage": true,
 	"adminOnly": false
