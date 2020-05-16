@@ -1,7 +1,7 @@
 # SpiderBot-Code
+The bot is still being developed, and has a long way till its done. A lot of the components of this bot are made specifically for my [discord server](https://discord.gg/gRMbZyU), however as time goes on I will work on making it more usable usable elsewhere.
 
-More to be added soon. The bot is still being worked on, and has a long way to go. A lot of the components of this bot are made specifically for my discord server, however as time goes on i am working to make it more usable.
-
+Invite the bot to your server! (link coming soon)
 # Setup
 Install the latest version of nodejs
 <br>Install discordjs `npm install discord.js`
