@@ -1,7 +1,15 @@
 {
 	"prefix": "&",
-	"token": "TOUR_TOKEN_HERE",
-	"logChannel": "702973523169116290",
-	"botLoginMessage": true,
-	"adminOnly": false
+	"token": "",
+	"logs": {
+		"logChannel": "702973523169116290",
+		"botLoginMessage": false
+	},
+	"admin": {
+		"adminOnly": false,
+		"adminofbot": "523826395801976842"
+	},
+	"embed": {
+		"defaultColor": "ff0000"
+	}
 }

@@ -8,8 +8,8 @@ module.exports = {
     description: 'Sends the text after the command to the host (soon,and saves it to a file)',
     execute(message, args) {
         var terms = args.join(" ");
-        var terms = terms.replace(args[0], "");
-        console.log(`"${message.user} Sent An Item To The Console: ` + terms + `"`);
+        console.log(`${message.author.username} Sent An Item To The Console: ${terms}`);
+        return message.channel.send(`You sent "${terms}" to the server`);
         // Add: Saves to a file
     },
 };

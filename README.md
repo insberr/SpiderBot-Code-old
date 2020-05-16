@@ -16,18 +16,18 @@ Invite the bot to your server! (link coming soon)
 ## Commands
 <br>Key: \<required> [optional]
 <br>`botconfig` - Configure the bot using commands (not implemented yet)
-<br>`calculate` - Calculate something. Usage: `&calculate <operation> <operand1> <operand2>`
-<br>`embed`
-<br>`info`
-<br>`kick`
-<br>`ping`
-<br>`purge`
-<br>`sendterm`
+<br>`calculate` - Calculate something.
+<br>`embed` - Create or use a preconfigured embed.
+<br>`info` - Get user or server info
+<br>`kick` - Kick a user (the kick part is to be added)
+<br>`ping` - Sends 'Pong' in return (soon to have the milliseconds)
+<br>`purge` - Bulk delete messages
+<br>`sendterm` - Sends the text after the command to the hosts console/terminal
 
 # To Do
 * Clean up code
 * Add more comments
-* 
+* Add help command
 
 # Future Plans
 Here are some of the future plans
