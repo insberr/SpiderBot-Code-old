@@ -2,6 +2,12 @@
 
 More to be added soon. The bot is still being worked on, and has a long way to go. A lot of the components of this bot are made specifically for my discord server, however as time goes on i am working to make it more usable.
 
+# Setup
+Install the latest version of nodejs
+<br>Install discordjs `npm install discord.js`
+<br>Run the code by typing `node SpiderBot.js`
+
+# Future Plans
 Here are some of the future plans
 * [ ] Add moderation commands
 * [ ] Add configuration commands
