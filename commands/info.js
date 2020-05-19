@@ -5,6 +5,7 @@ const fs = require('fs');
 
 module.exports = {
     name: 'info',
+    aliases: ['user', 'server'],
     description: 'Gives info about the server (soon: or user)',
     execute(message, args) {
         message.channel.send(`Server name: ${message.guild.name}\nTotal members: ${message.guild.memberCount}`);

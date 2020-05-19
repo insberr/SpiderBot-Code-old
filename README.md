@@ -1,6 +1,5 @@
 # SpiderBot-Code
-[SpiderBot documentation](https://spidergamin.github.io/SpiderBot-Code/) for how to use and other info.
-<br>The bot is still being developed, and has a long way till its done. A lot of the components of this bot are made specifically for my [discord server](https://discord.gg/gRMbZyU), however as time goes on I will work on making it more usable usable elsewhere.
+The bot is still being developed, and has a long way till its done. A lot of the components of this bot are made specifically for my [discord server](https://discord.gg/gRMbZyU), however as time goes on I will work on making it more usable usable elsewhere.
 
 Invite the bot to your server! (link coming soon)
 
@@ -36,11 +35,12 @@ Here are some of the future plans
 * [ ] Add configuration commands
 * [ ] Add ranking system, out roles, reaction roles, and possibly a verification role system
 * [ ] Add economy game
-* [x] Make a documentation (user manuel)
+* [ ] Make a documentation (user manuel)
 
 # Done
 * Reduced the amount of code
-* Combined `embed` and `savedembed` commands into one file. 
+* Combined `embed` and `savedembed` commands into one file.
+* Added License
 
 # Resurces Used
 <br>The base code of the bot (largely modifyed by me) - https://discordjs.guide/

@@ -6,75 +6,84 @@ const fs = require('fs');
 module.exports = {
     name: 'embed',
     description: 'Send and embeded message to a channel',
-    execute(message, args, client) {
-        if (!args.length) {
-            return message.channel.send("You did not provide any arguments. " + `Do \`\`\`${prefix}help embed\`\`\``)
-        }
-            // make/use
-            var embedType = args[0];
-            switch (embedType) {
-                // make | channel | color | title <!> description
-                case 'make': {
-                    if (args[1] === "|") {
-                        var channelID = message.channel;
-                        var channelID = String(channelID).replace("<", "").replace(">", "").replace("#", "");
-                    } else {
-                        var channelID = args[1].replace("<", "").replace(">", "").replace("#", "");
-                    }
-                    if (args[2] === "|") {
-                        var color = embed.defaultColor;
-                    } else {
-                        var color = "#" + args[2];
-                    }
-                    var title = args[3].replace("|", " ");
-                    var desc = args.join(" ");
-                    var desc = desc.replace(args[0], "").replace(args[1], "").replace(args[2], "").replace(args[3], "");
-                    const makeembed = new MessageEmbed()
-                        .setColor(color)
+    args: true, // Needs arguments
+    usage: '<make | use | > [channel] [color] | <title> | <description>',
+    execute(message, args) {
+        // make/use
+        var embedType = args[0];
+        switch (embedType) {
+            // make | channel | color | title | description
+            case 'make': {
+                if (args[1] === "|") {
+                    var channelID = message.channel;
+                    var channelID = String(channelID).replace("<", "").replace(">", "").replace("#", "");
+                } else {
+                    var channelID = args[1].replace("<", "").replace(">", "").replace("#", "");
+                }
+                if (args[2] === "|") {
+                    var color = embed.defaultColor;
+                } else {
+                    var color = "#" + args[2];
+                }
+                var title = args[3].replace("|", " ");
+                var desc = args.join(" ");
+                var desc = desc.replace(args[0], "").replace(args[1], "").replace(args[2], "").replace(args[3], "");
+                const makeembed = new MessageEmbed()
+                    .setColor(color)
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({
+                        dynamic: true,
+                        size: 512,
+                        format: "png"
+                    }))
+                    .setTitle(title)
+                    .setDescription(desc)
+                    .setTimestamp()
+                    .setFooter(`Spider Bot | Custom Embed`)
+                return message.client.channels.cache.get(channelID).send(makeembed);
+            }
+            // use | embedName | embed(true)/file(false)
+            case 'use': {
+                if (args[1] !== "false") {
+                    var textOrEmbed = true;
+                } else {
+                    var textOrEmbed = false;
+                }
+                // var title = savedEmbeds[args[1]].Title;
+                // var color = '#' + savedEmbeds[args[1]].Color;
+                // var desc = savedEmbeds[args[1]].Description;
+                // var channelID = savedEmbeds[args[1]].Channel;
+                if (textOrEmbed === true) {
+                    fs.readFile('../testEmbed.txt', function(err, data) {
+                        return message.channel.send({ embed: data });
+                    })
+                    
+                    /*const useembed = new MessageEmbed()
+                        .setColor('#' + savedEmbeds[args[1]].Color)
                         .setAuthor(message.author.username, message.author.displayAvatarURL({
                             dynamic: true,
                             size: 512,
                             format: "png"
                         }))
-                        .setTitle(title)
-                        .setDescription(desc)
+                        .setTitle(savedEmbeds[args[1]].Title)
+                        .setDescription(savedEmbeds[args[1]].Description)
                         .setTimestamp()
                         .setFooter(`Spider Bot | Custom Embed`)
-                    return client.channels.cache.get(channelID).send(makeembed);
-                break
-                }
-                // use | embedName | embed/file
-                case 'use': {
-                    var textOrEmbed = args[1];
-                    var title = savedEmbeds[args[0]].Title;
-                    var color = savedEmbeds[args[0]].Color;
-                    var desc = savedEmbeds[args[0]].Description;
-                    var channelid = savedEmbeds[args[0]].Channel;
-                    if (textOrEmbed === "true") {
-                        const useembed = new MessageEmbed()
-                            .setColor('#' + color)
-                            .setAuthor(message.author.username, message.author.displayAvatarURL({
-                                dynamic: true,
-                                size: 512,
-                                format: "png"
-                            }))
-                            .setTitle(title)
-                            .setDescription(desc)
-                            .setTimestamp()
-                            .setFooter(`Spider Bot | Custom Embed`)
-                        return client.channels.cache.get(channelid).send(useembed);
-                    } else if (textOrEmbed === "false") {
-                        fs.appendFile('../EmbedRequest.txt', `${savedEmbeds.embedName}`, function(err) {
-                            if (err) throw err;
-                            console.log('Embed Request Saved');
-                        });
-                        return message.channel.send(`Here is the json data`, {
-                            files: [
-                                "../EmbedRequest.txt"
-                            ]
-                        })
-                    }
+                    return message.client.channels.cache.get(savedEmbeds[args[1]].Channel).send(useembed);*/
+                } else if (textOrEmbed === false) {
+                    fs.appendFile('../SavedEmbedRequest.txt', `{\n\t"Embed": ${savedEmbeds[args[1]].Color},\n\t"Channel": "${savedEmbeds[args[1]].Channel}",\n\t"Color": "${savedEmbeds[args[1]].Color}",\n\t"Title": "${savedEmbeds[args[1]].Title}",\n\t"Description": "${savedEmbeds[args[1]].Description}"\n}`, function(err) {
+                        if (err) throw err;
+                        console.log('Embed Request Saved');
+                    });
+                    return message.channel.send(`Here is the json data`, {
+                        files: [
+                            "../SavedEmbedRequest.txt"
+                        ]
+                    })
+                } else {
+                    return message.channel.send(`Please provide true or false for the last argument`)
                 }
             }
+        }
+        message.channel.send(`Arguments: ${args}\nArguments length: ${args.length}`);
     },
 };

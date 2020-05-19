@@ -1,13 +1,14 @@
 {
 	"prefix": "&",
-	"token": "",
+	"token": "NjkzNTc0MTQ3NDY0NDk1MTE0.XofZFQ.qiVpcDABlC0NTcSombjvugkXegM",
 	"logs": {
 		"logChannel": "702973523169116290",
 		"botLoginMessage": false
 	},
 	"admin": {
 		"adminOnly": false,
-		"adminofbot": "523826395801976842"
+		"adminofbot": "523826395801976842",
+		"sleep": false
 	},
 	"embed": {
 		"defaultColor": "ff0000"

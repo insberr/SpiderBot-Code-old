@@ -1,25 +1,26 @@
 const { Client, MessageEmbed } = require('discord.js');
-const { prefix, token, logChannel, botLoginMessage, adminOnly } = require('../config.json');
-const savedEmbeds = require('../SpiderBot-Embeds.json');
+const { prefix } = require('../config.json');
 const fs = require('fs');
 
 module.exports = {
     name: 'calculate',
-    description: 'Do calculations!!',
+    description: 'Do calculations with the bot.',
+    aliases: ['cal', 'calc'],
+    cooldown: 3,
+    guildOnly: true,
+    args: true,
+    usage: '<add | sub | mul | div> <number 1> <number 2>',
     execute(message, args) {
-        if (!args.length) {
-            return message.channel.send("You did not provide any arguments");
-        } else {
-            let signs = {
-            "add": "+",
-            "sub": "-",
-            "mul": "x",
-            "div": "÷"
-            }
-            let [operation, operand1, operand2] = args
-            operand1 = parseInt(operand1), operand2 = parseInt(operand2)
-            let result
-            switch (operation.toLowerCase()) {
+        let signs = {
+        "add": "+",
+        "sub": "-",
+        "mul": "x",
+        "div": "÷"
+        }
+        let [operation, operand1, operand2] = args
+        operand1 = parseInt(operand1), operand2 = parseInt(operand2)
+        let result
+        switch (operation.toLowerCase()) {
             case "add": {
                 result = operand1 + operand2
                 break
@@ -36,11 +37,18 @@ module.exports = {
                 result = operand1 / operand2
                 break
             }
-            default: {
-                return message.channel.send(`Use "${prefix}help cal" for the proper syntax.`);
-            }
-            }
-            return message.channel.send(`${operand1} ${signs[operation.toLowerCase()]} ${operand2} = ${result}`);
         }
+        const calculateEmbed = new MessageEmbed()
+            .setColor(`ff0000`)
+            .setAuthor(message.author.username + ' | Calculation', message.author.displayAvatarURL({
+                dynamic: true,
+                size: 512,
+                format: "png"
+            }))
+            .setTitle(`${operand1} ${signs[operation.toLowerCase()]} ${operand2} = ${result}`)
+            .setDescription(` `)
+            .setFooter(`SpiderBot | ${prefix}help cal`)
+            .setTimestamp()
+        return message.channel.send(calculateEmbed);
     },
 };
