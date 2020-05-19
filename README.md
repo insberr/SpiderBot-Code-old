@@ -14,7 +14,7 @@ The bot is still being developed, and has a long way till It's done. A lot of th
 <br>The prefix is `&` by default and can be changed in the `config.json` file
 
 ### Quick Command Referance
-<br>See all commands in the <a href="https://spidergamin.github.io/SpiderBot-Code/docs/" style="color: red;">documentation</a>
+<br>See all commands in the <a href="https://spidergamin.github.io/SpiderBot-Code" style="color: red;">documentation</a>
 <br>`botconfig` - Configure the bot using commands (not implemented yet)
 <br>`calculate` - Calculate something.
 <br>`embed` - Create or use a preconfigured embed.
