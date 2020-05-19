@@ -1,3 +1,5 @@
+// Hi dont steal my bot ok.
+
 // Import Discord.js
 const Discord = require('discord.js');
 const client = new Discord.Client();
