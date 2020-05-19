@@ -36,11 +36,11 @@ Here are some of the future plans
 * [ ] Add configuration commands
 * [ ] Add ranking system, out roles, reaction roles, and possibly a verification role system
 * [ ] Add economy game
-* [ ] Make a documentation (user manuel)
+* [x] Make a documentation (user manuel)
 
 # Done
 * Reduced the amount of code
-* Combined `embed` and `savedembed` commands into one file.
+* Combined `embed` and `savedembed` commands into one file. 
 
 # Resurces Used
 <br>The base code of the bot (largely modifyed by me) - https://discordjs.guide/
