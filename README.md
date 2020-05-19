@@ -1,5 +1,6 @@
 # SpiderBot-Code
-The bot is still being developed, and has a long way till its done. A lot of the components of this bot are made specifically for my [discord server](https://discord.gg/gRMbZyU), however as time goes on I will work on making it more usable usable elsewhere.
+[SpiderBot documentation](https://spidergamin.github.io/SpiderBot-Code/) for how to use and other info.
+<br>The bot is still being developed, and has a long way till its done. A lot of the components of this bot are made specifically for my [discord server](https://discord.gg/gRMbZyU), however as time goes on I will work on making it more usable usable elsewhere.
 
 Invite the bot to your server! (link coming soon)
 
