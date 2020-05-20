@@ -30,7 +30,7 @@ const cooldowns = new Discord.Collection();
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 	// Set Bot Status
-	client.user.setActivity(`Being Developed | Close To Being Slightly Useable!!`);
+	client.user.setActivity(`Being Developed | Close To Being Slightly Useable!! ${admin.adminOnly}`);
 	// Login Embeded Message
 	if (logs.botLoginMessage === true) {
 		const botLoginEmbed = new MessageEmbed()
