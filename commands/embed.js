@@ -8,7 +8,7 @@ module.exports = {
     description: 'Send and embeded message to a channel',
     args: true, // Needs arguments
     usage: '<make | use | > [channel] [color] | <title> | <description>',
-    execute(message, args) {
+    execute(message, args, argsTwo) {
         // make/use
         var embedType = args[0];
         switch (embedType) {
