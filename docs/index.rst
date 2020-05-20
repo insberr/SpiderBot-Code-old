@@ -1,7 +1,2 @@
-.. toctree::
-   :maxdepth: 2
-
-   usage/installation
-   usage/quickstart
-   ...
+Making the documentation?
 hi
