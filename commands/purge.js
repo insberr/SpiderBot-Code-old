@@ -6,7 +6,8 @@ const fs = require('fs');
 module.exports = {
     name: 'purge',
     description: 'Mass delete messages',
-    execute(message, args) {
+    admin: true,
+    async execute(message, args) {
         const amount = parseInt(args[0]) + 1;
         if (message.author.id === "523826395801976842") {
             if (isNaN(amount)) {

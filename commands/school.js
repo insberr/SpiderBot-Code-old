@@ -1,15 +1,12 @@
 const { Client, MessageEmbed } = require('discord.js');
-const { prefix, token, logChannel, botLoginMessage, adminOnly } = require('../config.json');
-const savedEmbeds = require('../SpiderBot-Embeds.json');
-const fs = require('fs');
 
 module.exports = {
     name: 'school',
     description: 'When you say school, do this',
-    execute(message, args) {
+    async execute(message, args) {
         var badword = message.content;
 		message.delete()
-			.then(message => console.log(`deleted message`))
+			.then(message => console.log(`${message.author.username} said school: '${message.content}'`))
 			.catch(console.error);
 		const replaceembed = new MessageEmbed()
 			.setColor('#ff0000')

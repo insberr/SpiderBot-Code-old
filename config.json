@@ -1,14 +1,17 @@
 {
+	"bot": {
+		"prefix": "&",
+		"sleep": false
+	},
 	"prefix": "&",
-	"token": "TOKEN",
+	"token": "",
 	"logs": {
 		"logChannel": "702973523169116290",
 		"botLoginMessage": false
 	},
 	"admin": {
-		"adminOnly": false,
-		"adminofbot": "523826395801976842",
-		"sleep": false
+		"adminOnly": true,
+		"adminofbot": "523826395801976842"
 	},
 	"embed": {
 		"defaultColor": "ff0000"

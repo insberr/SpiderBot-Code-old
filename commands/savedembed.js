@@ -6,6 +6,7 @@ const fs = require('fs');
 module.exports = {
     name: 'savedembed',
     description: 'Get a saved embed and send it!',
+    admin: true,
     execute(message, args, client) {
         if (!args.length) {
             return message.channel.send(`You did not provide any arguments. Use \`\`\`${prefix}help savedembed\`\`\``)

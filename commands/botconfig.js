@@ -1,12 +1,13 @@
 const { Client, MessageEmbed } = require('discord.js');
-const { prefix, token, logChannel, botLoginMessage, adminOnly } = require('../config.json');
-const savedEmbeds = require('../SpiderBot-Embeds.json');
-const fs = require('fs');
 
 module.exports = {
     name: 'botconfig',
+    aliases: ['bot', 'config'],
     description: 'Configure the bot (comming soon)',
-    execute(message, args) {
+    usage: 'null',
+    args: true,
+    admin: true,
+    async execute(message, args) {
         return message.channel.send(`This command is coming soon`)
         /*
         if (!args.length) {

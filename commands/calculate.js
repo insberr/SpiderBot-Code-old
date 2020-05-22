@@ -1,16 +1,13 @@
 const { Client, MessageEmbed } = require('discord.js');
 const { prefix } = require('../config.json');
-const fs = require('fs');
 
 module.exports = {
     name: 'calculate',
-    description: 'Do calculations with the bot.',
+    description: 'Do basic calculations with the bot.',
     aliases: ['cal', 'calc'],
-    cooldown: 3,
-    guildOnly: true,
     args: true,
-    usage: '<add | sub | mul | div> <number 1> <number 2>',
-    execute(message, args) {
+    usage: '[add | sub | mul | div] [number 1] [number 2]',
+    async execute(message, args) {
         let signs = {
         "add": "+",
         "sub": "-",

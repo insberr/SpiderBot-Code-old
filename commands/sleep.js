@@ -6,6 +6,7 @@ const fs = require('fs');
 module.exports = {
     name: 'sleep',
     description: 'Set sleep mode',
+    admin: true,
     // true: sleep false: awake
     execute(message, args, client, botSleep) {
         if (message.author.id !== admin.adminofbot) {

@@ -25,9 +25,9 @@ The bot is still being developed, and has a long way till It's done. A lot of th
 <br>`sendterm` - Sends the text after the command to the hosts console/terminal
 
 ## To Do
-* Clean up code
-* Add more comments
-* Add help command
+* [ ] Clean up code
+* [ ] Add more comments
+* [x] Add help command
 
 ## Future Plans
 Here are some of the future plans
@@ -36,8 +36,18 @@ Here are some of the future plans
 * [ ] Add ranking system, out roles, reaction roles, and possibly a verification role system
 * [ ] Add economy game
 * [ ] Make a documentation (user manuel)
+* [ ] Use mathjs for the calculation command
 
-## Done
+## Done 
+### v1.1.0
+* Added a help command
+* Colorized some of the `consol.log` logs
+* Made some commands admin only
+* Admin commands can not be used in the bots DMs (it causes a crash)
+* Added the admin only feture
+* Removed lots of unused code
+* The kick command is now fully implemented
+### v0.1.2
 * Reduced the amount of code
 * Combined `embed` and `savedembed` commands into one file.
 * Added License
@@ -49,5 +59,5 @@ Here are some of the future plans
 <br>Discord.js discord server - https://discord.gg/bRCvFy9
 
 ## Credits
-[SpiderGamin](https://github.com/SpiderGamin) - Bot Creator
+<br>[SpiderGamin](https://github.com/SpiderGamin) - Bot Creator
 <br>[AbacabaTheAbacus](https://github.com/AbacabaTheAbacus) - helped with some of the code (and told me to use `switch` rather than `if`'s)
