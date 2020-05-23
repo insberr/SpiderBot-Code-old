@@ -24,7 +24,7 @@ then type
 node SpiderBot.js
 ```
 in the teminal. It will dispay a message saying 
-```shell
+```javascript
 Logged in as THE_BOTS_USERNAME!
 Admin Only: false
 ```
@@ -49,6 +49,12 @@ Admin Only: false
 * [ ] Add more comments
 * [x] Add help command
 
+## Commands To Add
+* config: set bot status, set log channel, set channels for no command usage, swear filter channels to ignore, set bypass roles
+* music commands
+* Swear filter 
+* ban
+
 ## Future Plans
 Here are some of the future plans
 * [ ] Add moderation commands
@@ -57,6 +63,7 @@ Here are some of the future plans
 * [ ] Add economy game
 * [ ] Make a documentation (user manuel)
 * [ ] Use mathjs for the calculation command
+* [ ] Make locally hosted web UI for easy configuring
 
 ## Done 
 ### v1.1.2
