@@ -6,16 +6,20 @@ module.exports = {
     description: 'Do basic calculations with the bot.',
     aliases: ['cal', 'calc'],
     args: true,
-    usage: '[add | sub | mul | div] [number 1] [number 2]',
+    usage: '[add | + | sub | - | mul | x | div | /] [number 1] [number 2]',
     async execute(message, args) {
         let signs = {
         "add": "+",
         "sub": "-",
         "mul": "x",
-        "div": "÷"
+        "div": "÷",
+        "+": "+",
+        "-": "-",
+        "x": "x",
+        "/": "÷"
         }
         let [operation, operand1, operand2] = args
-        operand1 = parseInt(operand1), operand2 = parseInt(operand2)
+        operand1 = parseFloat(operand1), operand2 = parseFloat(operand2)
         let result
         switch (operation.toLowerCase()) {
             case "add": {
@@ -31,6 +35,22 @@ module.exports = {
                 break
             }
             case "div": {
+                result = operand1 / operand2
+                break
+            }
+            case '+': {
+                result = operand1 + operand2
+                break
+            }
+            case '-': {
+                result = operand1 - operand2
+                break
+            }
+            case 'x': {
+                result = operand1 * operand2
+                break
+            }
+            case '/': {
                 result = operand1 / operand2
                 break
             }

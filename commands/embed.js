@@ -2,7 +2,7 @@ const { Client, MessageEmbed } = require('discord.js');
 const { embed } = require('../config.json');
 const savedEmbeds = require('../SpiderBot-Embeds.json');
 const fs = require('fs');
-
+//use fs and json data thingy
 module.exports = {
     name: 'embed',
     description: 'Send and embeded message to a channel (not finished)',
@@ -24,7 +24,7 @@ module.exports = {
                 if (args[2] === "|") {
                     var color = embed.defaultColor;
                 } else {
-                    var color = "#" + args[2];
+                    var color = args[2];
                 }
                 var title = args[3].replace("|", " ");
                 var desc = args.join(" ");
@@ -44,7 +44,7 @@ module.exports = {
             }
             // use | embedName | embed(true)/file(false)
             case 'use': {
-                if (args[1] !== "false") {
+                if (args[2] !== "false") {
                     var textOrEmbed = true;
                 } else {
                     var textOrEmbed = false;
@@ -54,11 +54,11 @@ module.exports = {
                 // var desc = savedEmbeds[args[1]].Description;
                 // var channelID = savedEmbeds[args[1]].Channel;
                 if (textOrEmbed === true) {
-                    fs.readFile('../testEmbed.txt', function(err, data) {
+                    /*fs.readFile('../testEmbed.txt', function(err, data) {
                         return message.channel.send({ embed: data });
                     })
-                    
-                    /*const useembed = new MessageEmbed()
+                    */
+                    const useembed = new MessageEmbed()
                         .setColor('#' + savedEmbeds[args[1]].Color)
                         .setAuthor(message.author.username, message.author.displayAvatarURL({
                             dynamic: true,
@@ -69,7 +69,7 @@ module.exports = {
                         .setDescription(savedEmbeds[args[1]].Description)
                         .setTimestamp()
                         .setFooter(`Spider Bot | Custom Embed`)
-                    return message.client.channels.cache.get(savedEmbeds[args[1]].Channel).send(useembed);*/
+                    return message.client.channels.cache.get(savedEmbeds[args[1]].Channel).send(useembed);
                 } else if (textOrEmbed === false) {
                     fs.appendFile('../SavedEmbedRequest.txt', `{\n\t"Embed": ${savedEmbeds[args[1]].Color},\n\t"Channel": "${savedEmbeds[args[1]].Channel}",\n\t"Color": "${savedEmbeds[args[1]].Color}",\n\t"Title": "${savedEmbeds[args[1]].Title}",\n\t"Description": "${savedEmbeds[args[1]].Description}"\n}`, function(err) {
                         if (err) throw err;

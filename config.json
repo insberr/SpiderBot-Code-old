@@ -1,19 +1,19 @@
 {
-	"bot": {
-		"prefix": "&",
-		"sleep": false
-	},
-	"prefix": "&",
-	"token": "",
-	"logs": {
-		"logChannel": "702973523169116290",
-		"botLoginMessage": false
-	},
-	"admin": {
-		"adminOnly": true,
-		"adminofbot": "523826395801976842"
-	},
-	"embed": {
-		"defaultColor": "ff0000"
-	}
+  "bot": {
+    "prefix": "&",
+    "sleep": false
+  },
+  "prefix": "&",
+  "token": "",
+  "logs": {
+    "logChannel": "702973523169116290",
+    "botLoginMessage": false
+  },
+  "admin": {
+    "adminOnly": false,
+    "adminofbot": "523826395801976842"
+  },
+  "embed": {
+    "defaultColor": "#ff0000"
+  }
 }

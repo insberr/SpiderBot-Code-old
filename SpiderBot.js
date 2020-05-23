@@ -3,15 +3,51 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const { Client, MessageEmbed, Permissions } = require('discord.js');
 
+// Files Management
+const fs = require('fs');
+
+/*
+const child_process = require('child_process');
+let watcher = fs.watch('config.json', {persistent: false}).on('change', eventType => {
+	if (eventType === 'rename') throw "Do not remove, move, or rename the config.json file."
+	client.destroy()
+	watcher.close()
+	child_process.fork(__filename, undefined, {detached: true, stdio: 'inherit'})
+	process.exit()
+})
+*/
+/*
+fs.watch('config.json', {persistent: false}).on('change', eventType => {
+	if (eventType === 'rename') throw "do not remove, move, or rename the config.json file.";
+	client.destroy();
+	console.log(this);
+	child_process.fork(__filename, undefined, {detached: true, stdio: "inherit"});
+	process.exit();
+});
+*/
+
+
+let config = JSON.parse(fs.readFileSync('config.json')) 
+fs.watch('config.json', {persistent: false}).on('change', eventType => {
+	if (eventType === 'rename') throw "do not remove, move, or rename the config.json file."
+	config = JSON.parse(fs.readFileSync('config.json'))
+	console.log(`Config File Reloaded`)
+})
+console.log(config);
+
+var prefix = config.prefix;
+const token = config.token;
+var admin = config.admin;
+var logs = config.logs;
+var embed = config.embed;
 // Import Configuration Files
-const { prefix, token, logs, admin, embed } = require('./config.json');
+//const { prefix, token, logs, admin, embed } = require('./config.json');
 const botConfig = require('./config.json');
 
 // Embeded Messages
 const savedEmbeds = require('./SpiderBot-Embeds.json');
 
-// Files Management
-const fs = require('fs');
+
 
 // Command File Management
 client.commands = new Discord.Collection();
@@ -24,13 +60,43 @@ for (const file of commandFiles) {
 // Command Cooldown
 const cooldowns = new Discord.Collection();
 
+// color text in terminal
+const color = { 
+	'clear': '\x1b[0m',
+	'bold': '\x1b[1m',
+	'black': '\x1b[30m',
+	'red': '\x1b[31m',
+	'green': '\x1b[32m',
+	'yellow': '\x1b[33m',
+	'blue': '\x1b[34m',
+	'magenta': '\x1b[35m',
+	'cyan': '\x1b[36m',
+	'white': '\x1b[37m',
+	'Bblack': '\x1b[90m',
+	'Bred': '\x1b[91m',
+	'Bgreen': '\x1b[92m',
+	'Byellow': '\x1b[93m',
+	'Bblue': '\x1b[94m',
+	'Bmagenta': '\x1b[95m',
+	'Bcyan': '\x1b[96m',
+	'Bwhite': '\x1b[97m',
+};
 
+// Text varuables
+const customText = {
+	'null': 'placeholder',
+};
 
 // When the bot logs in
 client.on('ready', () => {
-	console.log(`\x1b[96mLogged in as \x1b[1;31m${client.user.tag}! \n\x1b[0m\x1b[96mAdmin only: \x1b[34m${admin.adminOnly} \x1b[0m`);
+	console.log(`${color.Bcyan}Logged in as ${color.bold}${color.red}${client.user.tag}! \n${color.clear}${color.Bcyan}Admin only: ${color.Bblue}${config.admin.adminOnly} ${color.clear}`);
 	// Set Bot Status
-	client.user.setActivity(`Being Developed | Slightly Useable!\nAdmin Only: ${admin.adminOnly}`);
+	if (!admin.adminOnly) {
+		var adminBotStatus = '';
+	} else {
+		var adminBotStatus = 'The Bot Is Admin Only'
+	}
+	client.user.setActivity(`Being Developed | Slightly Useable! | ${prefix}help\n${adminBotStatus}`);
 	// Login Embeded Message
 	if (logs.botLoginMessage === true) {
 		const botLoginEmbed = new MessageEmbed()
@@ -45,13 +111,21 @@ client.on('ready', () => {
 	
 });
 
+client.on('guildCreate', guild => {
+	console.log(`Bot was added to a new server: ${guild.name}, ID: ${guild.id}, Members: ${guild.memberCount}.`);
+});
 
-client.on('message', message => {
-	// If message contains school (since school is a bad word for a while)
-	if (message.content.includes("School") || message.content.includes("school")) {
-		client.commands.get('school').execute(message);
-	};
-	
+client.on('guildDelete', guild => {
+	console.log(`Bot was removed from ${guild.name}, ID: ${guild.id}`);
+})
+
+client.on('message', async message => {
+	// If the message is from a bot, ignore it
+	if (message.author.bot) return;
+
+	// Ignore messages that arent commands
+	if (message.content.indexOf(prefix) !== 0) return;
+
 	// Commands
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -112,27 +186,27 @@ client.on('message', message => {
 	if (!admin.adminOnly) {
 		if (command.admin) {
 			if (message.channel.type !== 'text') {
-				return message.reply(`Cant do in DMs`);
+				return message.reply(`You cant use admin commands in the DMs (it crashes the bot)`);
 			}
 			if (message.member.hasPermission(Permissions.FLAGS.ADMINISTRATOR) !== true) {
-				return message.reply('You need to have admin to use that command');
+				return message.reply('This command is admin only');
 			}
 		}
 	} else {
 		if (message.channel.type !== 'text') {
-			return message.reply(`I cant use commands in the dms at the moment`)
+			return message.reply(`The bot is admin only at the moment: (reason)`)
 		}
 		if (message.member.hasPermission(Permissions.FLAGS.ADMINISTRATOR) !== true) {
-			return message.reply(`The bot is admin only at the moment`);
+			return message.reply(`The bot is admin only at the moment: (reason)`);
 		}
 	}
 
 	// Execute the command
 	try {
-		command.execute(message, args, argsTwo);
+		command.execute(message, args, argsTwo, color);
 	} catch (error) {
 		console.error(error);
-		message.reply('There was an error trying to execute that command!');
+		message.reply('There was an error executing that command');
 	}
 });
 
