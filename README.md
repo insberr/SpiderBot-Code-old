@@ -25,7 +25,8 @@ node SpiderBot.js
 ```
 in the teminal. It will dispay a message saying 
 ```shell
-\x1b[31mLogged in as <your_bots_username>
+Logged in as THE_BOTS_USERNAME!
+Admin Only: false
 ```
 
 ## Bot Usage
