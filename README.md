@@ -33,11 +33,11 @@ Admin Only: false
 <br>The prefix is `&` by default and can be changed in the `config.json` file
 
 ### Quick Command Referance
-<br>See all commands in the <a href="https://spidergamin.github.io/SpiderBot-Code" style="color: red">documentation</a>
+<br>See all commands in the <a href="https://spidergamin.github.io/SpiderBot-Code">documentation</a>
 <br>`botconfig` - Configure the bot using commands (not fully implemented yet)
 <br>`calculate` - Calculate something.
 <br>`embed` - Create or use a preconfigured embed.
-<br>`info` - Get user or server info
+<br>`info` - Get user, server, and bot info. Also configure custom info (working progress)
 <br>`kick` - Kick a user and give the reason
 <br>`ping` - Sends 'Pong' in return (soon to have the milliseconds)
 <br>`purge` - Bulk delete messages
@@ -64,8 +64,24 @@ Here are some of the future plans
 * [ ] Make a documentation (user manuel)
 * [ ] Use mathjs for the calculation command
 * [ ] Make locally hosted web UI for easy configuring
+* [ ] Use JSDoc for making the documentation
 
 ## Done 
+### v1.2.0
+* Removed unused code
+* Added config for the user
+* Fixed file reloading
+* Fixed setting the bot to admin only reason being `undefined`
+* Added CPU Temp and Memory Usage to the bot status
+* Added an on reaction thing
+* Added a stop command (mainly to stop all accidental double instances of the bot)
+* Removed unneeded commands
+* Added user info info
+
+#### Known Issues
+* User config works but sends the user info message for some reason
+* Lag?
+
 ### v1.1.2
 * Added `info` command functionallity (not finished)
 * Added functionallity to the kick command
@@ -82,6 +98,7 @@ Here are some of the future plans
 #### Known Issues
 * Embed command still needs some work
 * Still need to remove some of the unneeded commands
+
 #### To Do
 * [ ] Use math.js for the calculate command
 * [ ] Remove random and unused code

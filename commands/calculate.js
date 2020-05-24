@@ -1,11 +1,14 @@
 const { Client, MessageEmbed } = require('discord.js');
-const { prefix } = require('../config.json');
+const fs = require('fs');
+const config = JSON.parse(fs.readFileSync('config.json'));
+const prefix = config.prefix;
 
 module.exports = {
     name: 'calculate',
     description: 'Do basic calculations with the bot.',
     aliases: ['cal', 'calc'],
     args: true,
+    cooldown: 2,
     usage: '[add | + | sub | - | mul | x | div | /] [number 1] [number 2]',
     async execute(message, args) {
         let signs = {

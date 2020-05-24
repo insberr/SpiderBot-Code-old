@@ -1,12 +1,14 @@
 const { Client, MessageEmbed } = require('discord.js');
-const { prefix, logs, embed } = require('../config.json')
-const Discord = require('discord.js');
+const fs = require('fs');
+const config = JSON.parse(fs.readFileSync('config.json'));
+const prefix = config.prefix;
+const logs = config.logs;
+const embed = config.embed;
 
 module.exports = {
     name: 'kick',
     description: 'Kick a user from the server',
     usage: '[@user] (reason)',
-    cooldown: 0,
     args: true,
     admin: true,
     async execute(message, args, argsTwo) {
@@ -32,7 +34,7 @@ module.exports = {
         console.log(`Kick: \x1b[31m${userToKick} was kicked from the server by ${message.author.username}`)
         // Make the bot-log embed
         const kickLogEmbed = new MessageEmbed()
-            .setColor()
+            .setColor(embed.defaultColor)
             .setAuthor(message.author.username)
             .setTitle(`User Kicked`)
             .setDescription(`${message.author.username} kicked ${userToKick}\nReason: ${reasonForKick}`)

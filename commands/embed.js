@@ -1,14 +1,15 @@
 const { Client, MessageEmbed } = require('discord.js');
-const { embed } = require('../config.json');
-const savedEmbeds = require('../SpiderBot-Embeds.json');
 const fs = require('fs');
-//use fs and json data thingy
+const config = JSON.parse(fs.readFileSync('config.json'));
+const admin = config.admin;
+const embed = config.embed;
+
 module.exports = {
     name: 'embed',
     description: 'Send and embeded message to a channel (not finished)',
     args: true,
     usage: '[make | use] (channel) (color) [title] | [description]',
-    admin: true,
+    admin: admin.adminCommands.embed,
     async execute(message, args, argsTwo) {
         // make/use
         var embedType = args[0];

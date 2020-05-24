@@ -1,53 +1,49 @@
 // Import Discord.js
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client({ particls: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const { Client, MessageEmbed, Permissions } = require('discord.js');
 
-// Files Management
+// Files Management And System Info
 const fs = require('fs');
+const si = require('systeminformation');
+// Command Cooldown
+const cooldowns = new Discord.Collection();
 
-/*
-const child_process = require('child_process');
-let watcher = fs.watch('config.json', {persistent: false}).on('change', eventType => {
-	if (eventType === 'rename') throw "Do not remove, move, or rename the config.json file."
-	client.destroy()
-	watcher.close()
-	child_process.fork(__filename, undefined, {detached: true, stdio: 'inherit'})
-	process.exit()
-})
-*/
-/*
-fs.watch('config.json', {persistent: false}).on('change', eventType => {
-	if (eventType === 'rename') throw "do not remove, move, or rename the config.json file.";
-	client.destroy();
-	console.log(this);
-	child_process.fork(__filename, undefined, {detached: true, stdio: "inherit"});
-	process.exit();
-});
-*/
-
-
+// Configuration
+// If there is a change in the config.json file, reload it
 let config = JSON.parse(fs.readFileSync('config.json')) 
 fs.watch('config.json', {persistent: false}).on('change', eventType => {
 	if (eventType === 'rename') throw "do not remove, move, or rename the config.json file."
 	config = JSON.parse(fs.readFileSync('config.json'))
-	console.log(`Config File Reloaded`)
+	//console.log(`Config File Reloaded`)
 })
-console.log(config);
+//console.log(config);
 
-var prefix = config.prefix;
+let userconfig = JSON.parse(fs.readFileSync('commands/usersettings/userconfig.json')) 
+fs.watch('commands/usersettings/userconfig.json', {persistent: false}).on('change', eventType => {
+	if (eventType === 'rename') throw "do not remove, move, or rename the userconfig.json file."
+	userconfig = JSON.parse(fs.readFileSync('commands/usersettings/userconfig.json'))
+	//console.log(`Config File Reloaded`)
+})
+//console.log(userconfig);
+
+// Set config varuables
+const bot = config.bot;
+const activities = bot.activities;
+const prefix = config.prefix;
 const token = config.token;
-var admin = config.admin;
-var logs = config.logs;
-var embed = config.embed;
-// Import Configuration Files
+const admin = config.admin;
+const logs = config.logs;
+const embed = config.embed;
+const customText = config.customText;
+// Broken - const color = config.consoleFormatting;
+
+// Import Configuration Files (not auto reloaded)
 //const { prefix, token, logs, admin, embed } = require('./config.json');
-const botConfig = require('./config.json');
+//const botConfig = require('./config.json');
 
-// Embeded Messages
+// Preconfigured Embeded Messages
 const savedEmbeds = require('./SpiderBot-Embeds.json');
-
-
 
 // Command File Management
 client.commands = new Discord.Collection();
@@ -57,10 +53,9 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-// Command Cooldown
-const cooldowns = new Discord.Collection();
 
-// color text in terminal
+
+// Formatted text in terminal
 const color = { 
 	'clear': '\x1b[0m',
 	'bold': '\x1b[1m',
@@ -82,22 +77,62 @@ const color = {
 	'Bwhite': '\x1b[97m',
 };
 
-// Text varuables
-const customText = {
-	'null': 'placeholder',
-};
+
+// This counts the number of times the bot is started
+config.bot.startups = config.bot.startups + 1;
+let data = JSON.stringify(config, null, 2);
+fs.writeFileSync('config.json', data, function(err) {
+    if (err) throw err;
+    console.log(`error`);
+});
 
 // When the bot logs in
 client.on('ready', () => {
-	console.log(`${color.Bcyan}Logged in as ${color.bold}${color.red}${client.user.tag}! \n${color.clear}${color.Bcyan}Admin only: ${color.Bblue}${config.admin.adminOnly} ${color.clear}`);
 	// Set Bot Status
 	if (!admin.adminOnly) {
-		var adminBotStatus = '';
+		var adminBotStatus = 'The bot is in normal mode';
 	} else {
-		var adminBotStatus = 'The Bot Is Admin Only'
+		var adminBotStatus = `The Bot Is Admin Only: ${admin.adminOnlyReason}`;
 	}
-	client.user.setActivity(`Being Developed | Slightly Useable! | ${prefix}help\n${adminBotStatus}`);
-	// Login Embeded Message
+	// Say hello in the console when the bot logs in
+	console.log(`${color.Bcyan}Logged in as ${color.bold}${color.red}${client.user.tag}! \n${color.clear}${color.Bcyan}Admin only: ${color.Bblue}${config.admin.adminOnly}\n${color.cyan}StartUps: ${color.yellow}${bot.startups}${color.clear}`);
+
+	// Waiting for the details to be gathered for the new display of the status
+	client.user.setActivity(`Starting Bot | awaiting Details`);
+
+	// This repeats every 5 seconds i think
+	setInterval(() => {
+		// Get a random activity text to display (the list of texts is in the config.json)
+		const index = Math.floor(Math.random() * (activities.length - 1) +1);
+
+		// Get CPU TEMP and Memory usage and set the status
+		//si.mem().then(data => console.log(data));
+		si.mem().then(data => { 
+			var OSmemory = data;
+			si.cpuTemperature().then(data => { 
+				var CPUTemp = data;
+
+				// This function converts the long string of Memory bytes used to Gigabytes
+				function formatBytes (a,b) {
+					if (0==a) return "0 Bytes";
+					var c=1024,d=b||2,e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],f=Math.floor(Math.log(a)/Math.log(c));
+					var MemUsed = parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]
+					// Display the activity
+					return client.user.setActivity(`${activities[index]} | ${prefix}help | Useable!\n${adminBotStatus} | StartUps: ${bot.startups}\nCPU Temp: ${CPUTemp.max}\u00B0C\nMemory Usage:: ${MemUsed}`);
+				}
+				formatBytes(OSmemory.used);
+			});	 
+		})
+		// If the CPU temp gets above 80C, shut off the bot. Dont want to set your pc on fire now do you
+		si.cpuTemperature().then(data => {
+			if (data.max > 80) {
+				client.channels.cache.get(logs.logChannel).send(`Bot got too hot`);
+				return client.destroy();
+			}
+		})
+	}, 5000);
+	
+	// Login embeded if set to true in the config.json
 	if (logs.botLoginMessage === true) {
 		const botLoginEmbed = new MessageEmbed()
     	.setColor('#84FFFB')
@@ -108,25 +143,20 @@ client.on('ready', () => {
 		.setFooter('Logged In');
 		return client.channels.cache.get(logs.logChannel).send(botLoginEmbed);
 	}
-	
 });
 
+// When the bot is added to a server
 client.on('guildCreate', guild => {
 	console.log(`Bot was added to a new server: ${guild.name}, ID: ${guild.id}, Members: ${guild.memberCount}.`);
 });
 
+// When the bot leaves a server
 client.on('guildDelete', guild => {
 	console.log(`Bot was removed from ${guild.name}, ID: ${guild.id}`);
 })
 
 client.on('message', async message => {
-	// If the message is from a bot, ignore it
-	if (message.author.bot) return;
-
-	// Ignore messages that arent commands
-	if (message.content.indexOf(prefix) !== 0) return;
-
-	// Commands
+	// If the message does not have the prefix, ignore. Test if the user is a bot and ignore
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	// Split the arguments of the command
@@ -134,29 +164,23 @@ client.on('message', async message => {
 	const argsTwo = message.content.slice(prefix.length).split('|');
 	const commandName = args.shift().toLowerCase();
 
-	
-
-	// See if the command is an alias of another
+	// See if the command has an alias
 	const command = client.commands.get(commandName)
 		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 	if (!command) return;
 
-	
-
 	// If sure that the command is server only, tell the user
 	if (command.guildOnly && message.channel.type !== 'text') {
-		return message.reply('I can\'t execute that command inside DMs!');
+		return message.reply('I can\'t execute server only commands in the DMs!');
 	}
 
 	// If the command requires arguments, make sure they provided arguments and tell them the command usage
 	if (command.args && !args.length) {
 		let reply = `You didn't provide any arguments, ${message.author}!`;
-
 		if (command.usage) {
 			reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
 		}
-
 		return message.channel.send(reply);
 	}
 
@@ -177,12 +201,11 @@ client.on('message', async message => {
 			return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
 		}
 	}
-
 	timestamps.set(message.author.id, now);
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 	
 
-	// Is the config for the bot admin only
+	// Test if the bot is admin only, test if command is admin only
 	if (!admin.adminOnly) {
 		if (command.admin) {
 			if (message.channel.type !== 'text') {
@@ -194,10 +217,10 @@ client.on('message', async message => {
 		}
 	} else {
 		if (message.channel.type !== 'text') {
-			return message.reply(`The bot is admin only at the moment: (reason)`)
+			return message.reply(`The bot is admin only at the moment: ${admin.adminOnlyReason}`)
 		}
 		if (message.member.hasPermission(Permissions.FLAGS.ADMINISTRATOR) !== true) {
-			return message.reply(`The bot is admin only at the moment: (reason)`);
+			return message.reply(`The bot is admin only at the moment: ${admin.adminOnlyReason}`);
 		}
 	}
 
@@ -209,6 +232,19 @@ client.on('message', async message => {
 		message.reply('There was an error executing that command');
 	}
 });
+
+client.on('messageReactionAdd', async (reaction, user) => {
+	if (reaction.particl) {
+		try {
+			await reaction.fetch();
+		} catch (error) {
+			console.log('Something went wrong when fetching the message', error);
+			return;
+		}
+	}
+	//console.log(`${reaction.message.author}'s message "${reaction.message.content}" gained a reaction`);
+	//console.log(`${reaction.count} user(s) have given the same reaction to this message`)
+})
 
 client.login(token);
 

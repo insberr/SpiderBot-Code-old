@@ -1,11 +1,14 @@
 const { Client, MessageEmbed } = require('discord.js');
-const { prefix, token, logs, admin, embed } = require('../config.json');
 const fs = require('fs');
+const config = JSON.parse(fs.readFileSync('config.json'));
+const prefix = config.prefix;
+const embed = config.embed;
 
 module.exports = {
     name: 'send',
     description: 'Sends text to the host and saves it to a log file (user veiwable soon)',
     usage: '[text]',
+    cooldown: 10,
     async execute(message, args, argsTwo, color) {
         var terms = args.join(" ");
         console.log(`[${message.author.username}]: ${terms}${color.clear}`);
@@ -23,6 +26,6 @@ module.exports = {
             .setTitle(`You sent "${terms}" to the server`)
             .setFooter(`SpiderBot | ${prefix}help send`)
             .setTimestamp()
-        return message.channel.send(`You sent "${terms}" to the server`);
+        return message.channel.send(`Your message was sucessfully sent to the host; "${terms}"`);
     },
 };
