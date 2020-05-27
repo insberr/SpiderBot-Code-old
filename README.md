@@ -60,6 +60,10 @@ Admin Only: false
 * [ ] Use JSDoc for making the documentation
 
 ## Done 
+### v1.3.1
+* Fixed the start crash
+* Made the info command work better and the embed look better
+
 ### v1.3.0
 * Made the bot status code less long
 * Added a command for user configuration
