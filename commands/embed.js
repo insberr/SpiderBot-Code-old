@@ -1,8 +1,8 @@
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('config.json'));
-const admin = config.admin;
-const embed = config.embed;
+var config = JSON.parse(fs.readFileSync('config.json'));
+var admin = config.admin, embed = config.misc.embed;
+var savedEmbeds = JSON.parse(fs.readFileSync('SpiderBot-Embeds'));
 
 module.exports = {
     name: 'embed',

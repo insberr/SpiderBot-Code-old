@@ -1,8 +1,7 @@
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('config.json'));
-const prefix = config.prefix;
-const embed = config.embed;
+var config = JSON.parse(fs.readFileSync('config.json'));
+var prefix = config.bot.prefix, embed = config.misc.embed;
 
 module.exports = {
     name: 'send',

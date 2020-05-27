@@ -1,13 +1,15 @@
 {
   "SpiderGaming": {
     "UserName": "SpiderGaming",
-    "userID": "notset ok",
+    "userID": null,
     "embed": {
-      "customColor": "#111111",
-      "userInfoCustomInfo": "Hi There, i get early access to this lol."
+      "customColor": null,
+      "customInfo": "Hi There, I get early access to this lol."
     },
     "personal": {
-      "age": "null"
+      "age": 15,
+      "pronouns": "he/him",
+      "bday": "jan-21-2005"
     }
   }
 }

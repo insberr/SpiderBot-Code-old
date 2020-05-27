@@ -43,12 +43,6 @@ Admin Only: false
 <br>`purge` - Bulk delete messages
 <br>`send` - Sends the text after the command to the hosts console/terminal
 
-## To Do
-### v1.1.0
-* [ ] Clean up code
-* [ ] Add more comments
-* [x] Add help command
-
 ## Commands To Add
 * config: set bot status, set log channel, set channels for no command usage, swear filter channels to ignore, set bypass roles
 * music commands
@@ -56,7 +50,6 @@ Admin Only: false
 * ban
 
 ## Future Plans
-Here are some of the future plans
 * [ ] Add moderation commands
 * [ ] Add configuration commands
 * [ ] Add ranking system, out roles, reaction roles, and possibly a verification role system
@@ -67,6 +60,12 @@ Here are some of the future plans
 * [ ] Use JSDoc for making the documentation
 
 ## Done 
+### v1.3.0
+* Made the bot status code less long
+* Added a command for user configuration
+* The info command now has more functionallity
+* Bug fixes and improvements
+
 ### v1.2.0
 * Removed unused code
 * Added config for the user
@@ -130,3 +129,4 @@ Here are some of the future plans
 - Told me to use the `switch` rather than `if`
 - Helps test the bot
 - The config file reload
+<br>The people on my discord server!

@@ -1,6 +1,6 @@
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('config.json'));
+var config = JSON.parse(fs.readFileSync('config.json'));
 
 module.exports = {
     name: 'purge',

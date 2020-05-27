@@ -1,23 +1,26 @@
 {
   "bot": {
-    "startups": 69,
+    "token": "",
+    "startups": 222,
     "prefix": "&",
     "activities": [
       "You Will never see this message",
       "From config.json",
       "Being Developed",
-      "Being Coded Using VS COde"
+      "Being Coded Using VS COde",
+      "Killed by extream assignmentesdilectus disorder",
+      "Discord!",
+      "Economy | help eco",
+      "Auto Roles Are Coming Soon"
     ]
   },
-  "prefix": "&",
-  "token": "",
   "logs": {
     "logChannel": "702973523169116290",
     "botLoginMessage": false
   },
   "admin": {
     "adminOnly": false,
-    "adminOnlyReason": "none",
+    "adminOnlyReason": null,
     "adminsofbot": [
       "523826395801976842"
     ],
@@ -25,30 +28,12 @@
       "embed": true
     }
   },
-  "embed": {
-    "defaultColor": "#ff0000"
-  },
-  "customText": {
-    "soon": "No Content"
-  },
-  "consoleFormatting": {
-    "clear": "\\x1b[0m",
-    "bold": "\\x1b[1m",
-    "black": "\\x1b[30m",
-    "red": "\\x1b[31m",
-    "green": "\\x1b[32m",
-    "yellow": "\\x1b[33m",
-    "blue": "\\x1b[34m",
-    "magenta": "\\x1b[35m",
-    "cyan": "\\x1b[36m",
-    "white": "\\x1b[37m",
-    "Bblack": "\\x1b[90m",
-    "Bred": "\\x1b[91m",
-    "Bgreen": "\\x1b[92m",
-    "Byellow": "\\x1b[93m",
-    "Bblue": "\\x1b[94m",
-    "Bmagenta": "\\x1b[95m",
-    "Bcyan": "\\x1b[96m",
-    "Bwhite": "\\x1b[97m"
+  "misc": {
+    "embed": {
+      "defaultColor": "#ff0000"
+    },
+    "customText": {
+      "soon": "No Content"
+    }
   }
 }

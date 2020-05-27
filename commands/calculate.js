@@ -1,7 +1,7 @@
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('config.json'));
-const prefix = config.prefix;
+var config = JSON.parse(fs.readFileSync('config.json'));
+var prefix = config.bot.prefix, embed = config.misc.embed;
 
 module.exports = {
     name: 'calculate',
@@ -9,7 +9,7 @@ module.exports = {
     aliases: ['cal', 'calc'],
     args: true,
     cooldown: 2,
-    usage: '[add | + | sub | - | mul | x | div | /] [number 1] [number 2]',
+    usage: '[number 1] [add | + | sub | - | mul | x | div | /] [number 2]',
     async execute(message, args) {
         let signs = {
         "add": "+",
@@ -21,7 +21,7 @@ module.exports = {
         "x": "x",
         "/": "÷"
         }
-        let [operation, operand1, operand2] = args
+        let [operand1, operation, operand2] = args
         operand1 = parseFloat(operand1), operand2 = parseFloat(operand2)
         let result
         switch (operation.toLowerCase()) {
@@ -59,7 +59,7 @@ module.exports = {
             }
         }
         const calculateEmbed = new MessageEmbed()
-            .setColor(`ff0000`)
+            .setColor(embed.defaultColor)
             .setAuthor(message.author.username + ' | Calculation', message.author.displayAvatarURL({
                 dynamic: true,
                 size: 512,

@@ -1,7 +1,7 @@
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('config.json'));
-const logs = config.logs;
+var config = JSON.parse(fs.readFileSync('config.json'));
+var logs = config.logs;
 
 module.exports = {
     name: 'stop', // Command
