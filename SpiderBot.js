@@ -9,7 +9,7 @@ const si = require('systeminformation');
 
 /** Configuration: File refresh on changes. Set config variables */
 // Ready config variables
-var bot, activities, prefix, token, admin, logs, embed, customText;
+// var bot, activities, prefix, token, admin, logs, embed, customText;
 
 // Set the config files to a variable
 let config = JSON.parse(fs.readFileSync('config.json'));
@@ -19,28 +19,30 @@ let userconfig = JSON.parse(fs.readFileSync('commands/usersettings/userconfig.js
 fs.watch('config.json', {persistent: false}).on('change', eventType => {
 	if (eventType === 'rename') throw "do not remove, move, or rename the config.json file.";
 	config = JSON.parse(fs.readFileSync('config.json'));
-	userconfig = JSON.parse(fs.readFileSync('commands/usersettings/userconfig.json'));
 	console.log(`Config Files Reloaded`);
 	// Re-Set the variables
-	bot = config.bot;
-	activities = config.bot.activities;
-	prefix = config.bot.prefix;
-	token = config.bot.token;
-	admin = config.admin;
-	logs = config.logs;
-	embed = config.misc.embed;
-	customText = config.misc.customText;
+	//bot = config.bot;
+	//activities = config.bot.activities;
+	//prefix = config.bot.prefix;
+	//token = config.bot.token;
+	//admin = config.admin;
+	//logs = config.logs;
+	//embed = config.misc.embed; 
+	//customText = config.misc.customText;
+	let {bot, admin, logs, misc} = config, {activities, prefix, token} = bot, {embed, customText} = misc;
+
 });
+let {bot, admin, logs, misc} = config, {activities, prefix, token} = bot, {embed, customText} = misc;
 
 // Set the variables
-bot = config.bot;
-activities = config.bot.activities;
-prefix = config.bot.prefix;
-token = config.bot.token;
-admin = config.admin;
-logs = config.logs;
-embed = config.misc.embed;
-customText = config.misc.customText;
+//bot = config.bot;
+//activities = config.bot.activities;
+//prefix = config.bot.prefix;
+//token = config.bot.token;
+//admin = config.admin;
+//logs = config.logs;
+//embed = config.misc.embed;
+//customText = config.misc.customText;
 
 // Reload user-config
 fs.watch('commands/usersettings/userconfig.json', {persistent: false}).on('change', eventType => {
@@ -103,7 +105,7 @@ client.on('ready', () => {
 		.setColor('#84FFFB')
 		.setTitle(`SpiderBot Logged In`)
 		.setAuthor(client.user.tag)
-		.setDescription(`Prefix: ${bot.prefix}\nLog Channel: ${logs.logChannel}\nUse Perms: ${admin.adminOnly}`)
+		.setDescription(`Prefix: ${prefix}\nLog Channel: ${logs.logChannel}\nUse Perms: ${admin.adminOnly}`)
 		.setTimestamp()
 		.setFooter('Logged In');
 		return client.channels.cache.get(logs.logChannel).send(botLoginEmbed);
@@ -131,7 +133,7 @@ client.on('ready', () => {
 	}, 5000);
 	
 	function loginSetActivity() {
-		client.user.setActivity(`Gaining Life | ${bot.prefix}help\n${adminBotStatus} | StartUps: ${bot.startups}`);
+		client.user.setActivity(`Gaining Life | ${prefix}help\n${adminBotStatus} | StartUps: ${bot.startups}`);
 		setInterval(() => {
 			adminBotStatus = (!admin.adminOnly) ? 'Normal Mode' : 'Admin Only';
 			var d = new Date();
@@ -140,13 +142,13 @@ client.on('ready', () => {
 			b = b.toString().padStart(2, '0');
 			var time = `${a}:${b}`
 			// Get a random activity text to display (the list of texts is in the config.json)
-			const index = Math.floor(Math.random() * (bot.activities.length - 1) +1);
+			const index = Math.floor(Math.random() * (activities.length - 1) +1);
 			function formatBytes (a, b) {
 				if (a === 0) return '0 Bytes';
 				var c = 1024, d = b||2, e = ["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"], f = Math.floor(Math.log(a) / Math.log(c));
 				OSMem = parseFloat((a / Math.pow(c, f)).toFixed(d)) + ' ' + e[f];
 				// Display the activity
-				client.user.setActivity(`${bot.activities[index]} | ${bot.prefix}help | ${time}\n${adminBotStatus} | StartUps: ${bot.startups}\nCPU: ${CPUTemp}\u00B0C | MEM: ${OSMem}`);
+				client.user.setActivity(`${activities[index]} | ${prefix}help | ${time}\n${adminBotStatus} | StartUps: ${bot.startups}\nCPU: ${CPUTemp}\u00B0C | MEM: ${OSMem}`);
 			}
 			formatBytes(OSMem);
 		}, 10000);
@@ -166,8 +168,15 @@ client.on('guildDelete', guild => {
 
 // When there is a message in a channel
 client.on('message', async message => {
+	// let userFromGuild = message.client.users.fetch(message.author.id);
+
 	// If the message does not have the prefix, ignore. Test if the user is a bot and ignore
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+	// if dms return
+	if (message.channel.type !== 'text') return message.channel.send('You can not use the bot in the DMs.');
+
+
 
 	// Split the arguments
 	const args = message.content.slice(prefix.length).split(/ +/);
@@ -182,7 +191,7 @@ client.on('message', async message => {
 
 	// Check if the command is guild only and if the user is using it in a guild
 	if (command.guildOnly && message.channel.type !== 'text') {
-		return message.reply(`You can't use server only commands in the DMs!`);
+		return message.reply({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: `You can't use server only commands in the DMs! ` }});
 	}
 
 	/* Check if the command requires arguments. If required, and no were provided, tell the user the usage */
@@ -191,7 +200,7 @@ client.on('message', async message => {
 		if (command.usage) {
 			reply += `\nThe commands usage is: \`${prefix}${command.name} ${command.usage}\``;
 		}
-		return message.channel.send(reply);
+		return message.channel.send({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: reply }});
 	}
 
 	// Command usage cooldown (im not even going to pretend to know how this works)
@@ -208,7 +217,7 @@ client.on('message', async message => {
 
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
-			return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+			return message.reply({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: `please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.` }});
 		}
 	}
 	timestamps.set(message.author.id, now);
@@ -219,15 +228,15 @@ client.on('message', async message => {
 	if (!admin.adminOnly) {
 		if (command.admin) {
 			if (message.channel.type !== 'text') {
-				return message.reply(`You cant use admin commands in the DMs (it crashes the bot, which is better than people being able to use them in DMs)`);
+				return message.reply({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: `You cant use admin commands in the DMs (it crashes the bot, which is better than people being able to use them in DMs)` }});
 			}
 			if (message.member.hasPermission(Permissions.FLAGS.ADMINISTRATOR) !== true) {
-				return message.channel.send('That command is admin only');
+				return message.channel.send({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: 'That command is admin only' }});
 			}
 		}
 	} else {
 		if (message.channel.type !== 'text' || message.member.hasPermission(Permissions.FLAGS.ADMINISTRATOR) !== true) {
-			return message.channel.send(`The bot is admin only at the moment: ${admin.adminOnlyReason}`)
+			return message.channel.send({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: `The bot is admin only at the moment: ${admin.adminOnlyReason}` }})
 		}
 	}
 
@@ -236,7 +245,7 @@ client.on('message', async message => {
 		command.execute(message, args, argsTwo, color);
 	} catch (error) {
 		console.error(error);
-		message.channel.send(`There was an error using ${command}\nArgs: ${args.join(' ')}`);
+		message.channel.send({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: `There was an error using ${command}\nArgs: ${args.join(' ')}` }});
 	}
 });
 
@@ -259,6 +268,6 @@ fs.writeFileSync('config.json', JSON.stringify(config, null, 2), function(err) {
     console.log(`error`);
 });
 
-client.login(bot.token);
+client.login(token);
 
  

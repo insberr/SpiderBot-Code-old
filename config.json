@@ -1,7 +1,7 @@
 {
   "bot": {
     "token": "",
-    "startups": 222,
+    "startups": 255,
     "prefix": "&",
     "activities": [
       "You Will never see this message",

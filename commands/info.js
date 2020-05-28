@@ -100,6 +100,7 @@ module.exports = {
                     .setTimestamp()
                 return message.channel.send(botInfoEmbed);
             }
+
         }
         // message.channel.send(`Server name: ${message.guild.name}\nTotal members: ${message.guild.memberCount}`);
         // User Info: message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
