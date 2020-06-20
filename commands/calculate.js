@@ -1,24 +1,28 @@
 const { Client, MessageEmbed } = require('discord.js');
-const { prefix } = require('../config.json');
 const fs = require('fs');
+var config = JSON.parse(fs.readFileSync('config.json'));
+var prefix = config.bot.prefix, embed = config.misc.embed;
 
 module.exports = {
     name: 'calculate',
-    description: 'Do calculations with the bot.',
+    description: 'Do basic calculations with the bot.',
     aliases: ['cal', 'calc'],
-    cooldown: 3,
-    guildOnly: true,
     args: true,
-    usage: '<add | sub | mul | div> <number 1> <number 2>',
-    execute(message, args) {
+    cooldown: 2,
+    usage: '[number 1] [add | + | sub | - | mul | x | div | /] [number 2]',
+    async execute(message, args) {
         let signs = {
         "add": "+",
         "sub": "-",
         "mul": "x",
-        "div": "÷"
+        "div": "÷",
+        "+": "+",
+        "-": "-",
+        "x": "x",
+        "/": "÷"
         }
-        let [operation, operand1, operand2] = args
-        operand1 = parseInt(operand1), operand2 = parseInt(operand2)
+        let [operand1, operation, operand2] = args
+        operand1 = parseFloat(operand1), operand2 = parseFloat(operand2)
         let result
         switch (operation.toLowerCase()) {
             case "add": {
@@ -37,9 +41,25 @@ module.exports = {
                 result = operand1 / operand2
                 break
             }
+            case '+': {
+                result = operand1 + operand2
+                break
+            }
+            case '-': {
+                result = operand1 - operand2
+                break
+            }
+            case 'x': {
+                result = operand1 * operand2
+                break
+            }
+            case '/': {
+                result = operand1 / operand2
+                break
+            }
         }
         const calculateEmbed = new MessageEmbed()
-            .setColor(`ff0000`)
+            .setColor(embed.defaultColor)
             .setAuthor(message.author.username + ' | Calculation', message.author.displayAvatarURL({
                 dynamic: true,
                 size: 512,

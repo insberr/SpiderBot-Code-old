@@ -1,0 +1,37 @@
+[SpiderGaming]: First
+[IDoNotExist]: [H
+[*blank*]: Hello there
+[slep_slep]: <:bot_tag:709522438722945064>
+[*blank*]: Nuke codes
+[*blank*]: *Classified nuke codes*
+[SpiderGaming]: function formatBytes(a,b){if(0==a)return"0 Bytes";var c=1024,d=b||2,e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],f=Math.floor(Math.log(a)/Math.log(c));return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]}
+[SpiderGaming]: Help me I’m tired and can’t sleep
+[SpiderGaming]: Add: text from computer to discord chat
+[SpiderGaming]: Hi
+[SpiderGaming]: [Hhi
+[SpiderGaming]: hi
+[SpiderGaming]: 👋
+[SpiderGaming]: 👍
+[SpiderGaming]: color:🖌️ customtest:🇦
+[SpiderGaming]: check ✅ x ❌
+[SpiderGaming]: Hello
+[IDoNotExist]: SPIDER YOUR BOT NEEDS A COOLDOWN FOR &ECO WORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+I CAN SPAM IT!!!!!!!!!!!!!
+I HAVE APPROX 70K!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[IDoNotExist]: Wait, it's gonna be 80K perhaps.
+[IDoNotExist]: You need to fix it, purge <#693463012601888811>, and reset my money.
+[IDoNotExist]: That was supposed to be # spammy-spam but you are probably seeing the raw mention syntax thing.
+[IDoNotExist]: I have $88721.
+[IDoNotExist]: You need to reset mine and purge this channel.
+[IDoNotExist]: And make a cooldown, like the one I just had for &send.
+[SpiderGaming]: ```js
+let {bot, admin, logs, misc} = config, {activities, prefix, token} = bot, {embed, customText} = misc
+```
+[SpiderGaming]: ```js
+setInterval(async () => {
+ CPUTemp = (await si.cpuTemperature()).max
+ OSMem = (await si.mem()).used
+}, 1000)
+```
+[SpiderGaming]: h
+[SpiderGaming]: hi

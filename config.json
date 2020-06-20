@@ -1,16 +1,39 @@
 {
-	"prefix": "&",
-	"token": "TOKEN",
-	"logs": {
-		"logChannel": "702973523169116290",
-		"botLoginMessage": false
-	},
-	"admin": {
-		"adminOnly": false,
-		"adminofbot": "523826395801976842",
-		"sleep": false
-	},
-	"embed": {
-		"defaultColor": "ff0000"
-	}
+  "bot": {
+    "token": "",
+    "startups": 256,
+    "prefix": "&",
+    "activities": [
+      "You Will never see this message",
+      "From config.json",
+      "Being Developed",
+      "Being Coded Using VS COde",
+      "Killed by extream assignmentesdilectus disorder",
+      "Discord!",
+      "Economy | help eco",
+      "Auto Roles Are Coming Soon"
+    ]
+  },
+  "logs": {
+    "logChannel": "702973523169116290",
+    "botLoginMessage": false
+  },
+  "admin": {
+    "adminOnly": false,
+    "adminOnlyReason": null,
+    "adminsofbot": [
+      "523826395801976842"
+    ],
+    "adminCommands": {
+      "embed": true
+    }
+  },
+  "misc": {
+    "embed": {
+      "defaultColor": "#ff0000"
+    },
+    "customText": {
+      "soon": "No Content"
+    }
+  }
 }
