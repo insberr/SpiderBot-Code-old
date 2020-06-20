@@ -1,5 +1,5 @@
 # SpiderBot-Code
-The bot is still being developed, and has a long way till It's done. A lot of the components of this bot are made specifically for my [discord server](https://discord.gg/gRMbZyU) right now, however as time goes on I will work on making it more usable usable elsewhere.
+The bot is still being developed, and has a long way till It's done. A lot of the components of this bot are made specifically for my discord server right now, however as time goes on I will work on making it more usable usable elsewhere.
 
 [comment]: <> (Invite the bot to your server)
 
@@ -133,4 +133,3 @@ Admin Only: false
 - Told me to use the `switch` rather than `if`
 - Helps test the bot
 - The config file reload
-<br>The people on my discord server!
