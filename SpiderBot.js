@@ -1,5 +1,6 @@
 /* eslint-disable no-inner-declarations */
 /** Import Discord.js and the other needed modules */
+require('colors')
 const Discord = require('discord.js');
 const client = new Discord.Client({ particls: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const { Client, MessageEmbed, Permissions } = require('discord.js');
@@ -98,7 +99,7 @@ var OSMem;
 // When the client (bot) is ready
 client.on('ready', () => {
 	// Say hello in the console when the bot logs in
-	console.log(`${color.Bcyan}Logged in as ${color.bold}${color.red}${client.user.tag}! \n${color.clear}${color.Bcyan}Admin only: ${color.Bblue}${admin.adminOnly}\n${color.cyan}StartUps: ${color.yellow}${bot.startups}${color.clear}`);
+	console.log('Logged in as '.brightCyan + client.user.tag.brightRed.bold +  '!\n'.brightRed.bold + 'Admin only: '.brightCyan + admin.adminOnly.toString().brightGreen.bold + '\nStartUps: '.brightCyan + bot.startups.toString().bold.brightYellow);
 	// Login embeded if set to true in the config.json
 	if (logs.botLoginMessage) {
 		const botLoginEmbed = new MessageEmbed()
