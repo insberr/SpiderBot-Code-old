@@ -1,37 +1,91 @@
 /* eslint-disable no-inner-declarations */
 /** Import Discord.js and the other needed modules */
+
+const { CommandoClient } = require('discord.js-commando');
+const path = require('path');
+const winston = require('winston');
+require('dotenv').config();
+
+const client = new CommandoClient({
+	commandPrefix: '&',
+	owner: '523826395801976842',
+	invite: 'https://discord.gg/6kFYJAP',
+})
+
+const logger = winston.createLogger({
+	transports: [
+		new winston.transports.Console(),
+		new winston.transports.File({ filename: 'log' }),
+	],
+	format: winston.format.printf(log => `[${log.level.toUpperCase()}] ${log.message}`),
+});
+
+/*
+const sqlite = require('sqlite');
+client.setProvider(
+    sqlite.open(path.join(__dirname, 'settings.sqlite3')).then(db => new Commando.SQLiteProvider(db))
+).catch(console.error);
+*/
+
+client.registry
+	.registerDefaultTypes()
+	.registerGroups([
+		['config', 'Edit the bots config'],
+		['moderation', 'Moderation commands'],
+		['info', 'User info/configuration, leveling, and more'],
+		['fun', 'Fun commands'],
+		['economy', 'Economy game (in dev)'],
+		['developement', 'Developement commands'],
+		['testing', 'Commands being developed'],
+	])
+	.registerDefaultGroups()
+	.registerDefaultCommands()
+	/*
+	.registerDefaultCommands({
+		help: false,
+	})
+	*/
+	.registerCommandsIn(path.join(__dirname, 'commands'));
+
+client.once('ready', () => {
+	logger.log('info', `Logged in as ${client.user.tag}`);
+	client.user.setActivity('with Commando');
+});
+
+client.on('error', m => logger.log('error', m));
+
+
 require('colors')
-const Discord = require('discord.js');
-const client = new Discord.Client({ particls: ['MESSAGE', 'CHANNEL', 'REACTION'] });
+// const client = new Discord.Client({ particls: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const { Client, MessageEmbed, Permissions } = require('discord.js');
 // File Management And System Info
 const fs = require('fs');
 
 // My functions 
 const functions = require('./functions.js');
-
+var token = process.env.BOT_TOKEN;
 /** Configuration: File refresh on changes. Set config variables */
 
 // Set the config files to a variable
 let config = JSON.parse(fs.readFileSync('config.json'));
-let userconfig = JSON.parse(fs.readFileSync('commands/usersettings/userconfig.json'));
+let userconfig = JSON.parse(fs.readFileSync('old-commands/usersettings/userconfig.json'));
 
 // If there is a change in the config.json file, reload it
-fs.watch('config.json', {persistent: false}).on('change', eventType => {
+fs.watch('config.json', { persistent: false }).on('change', eventType => {
 	if (eventType === 'rename') throw "do not remove, move, or rename the config.json file.";
 	config = JSON.parse(fs.readFileSync('config.json'));
 	console.log(`Config Files Reloaded`);
 	// Reset the config varuables
-	let {bot, admin, logs, misc} = config, {activities, prefix, token} = bot, {embed, customText} = misc;
+	let { bot, admin, logs, misc } = config, { activities, prefix } = bot, { embed, customText } = misc;
 
 });
-let {bot, admin, logs, misc} = config, {activities, prefix, token} = bot, {embed, customText} = misc;
+let { bot, admin, logs, misc } = config, { activities, prefix } = bot, { embed, customText } = misc;
 
 
 // Reload user-config
-fs.watch('commands/usersettings/userconfig.json', {persistent: false}).on('change', eventType => {
+fs.watch('old-commands/usersettings/userconfig.json', { persistent: false }).on('change', eventType => {
 	if (eventType === 'rename') throw "do not remove, move, or rename the userconfig.json file.";
-	userconfig = JSON.parse(fs.readFileSync('commands/usersettings/userconfig.json'));
+	userconfig = JSON.parse(fs.readFileSync('old-commands/usersettings/userconfig.json'));
 	console.log(`UserConfig Files Reloaded`);
 });
 
@@ -59,11 +113,11 @@ const color = functions.color;
 // This counts the number of times the bot is started
 config.bot.startups++;
 
-// When the client (bot) is ready
+/* When the client (bot) is ready
 client.on('ready', () => {
 	functions.botStartUp(client, config, color);
 });
-
+*/
 // When the bot is added to a server
 client.on('guildCreate', guild => {
 	console.log(`Bot was added to a new server: ${guild.name}, ID: ${guild.id}, Members: ${guild.memberCount}.`);
@@ -78,7 +132,7 @@ client.on('guildDelete', guild => {
 client.on('message', async message => {
 	if (message.author.bot) return;
 	functions.swearFilter(message, s => {
-		if (s.swearing) message.channel.send({ embed: { title: `Please do not use such offensive words` }});
+		if (s.swearing) message.channel.send({ embed: { title: `Please do not use such offensive words` } });
 		// console.log(s);
 	})
 	functions.commandUse(client, message, config, userconfig, color, cmd => {
@@ -181,11 +235,10 @@ client.on('messageReactionAdd', async (reaction, user) => {
 })
 
 // Newly defined config is set with htis
-fs.writeFileSync('config.json', JSON.stringify(config, null, 2), function(err) {
-    if (err) throw err;
-    console.log(`error`);
+fs.writeFileSync('config.json', JSON.stringify(config, null, 2), function (err) {
+	if (err) throw err;
+	console.log(`error`);
 });
 
 client.login(token);
 
- 

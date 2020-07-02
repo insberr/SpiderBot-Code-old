@@ -188,7 +188,7 @@ methods.embed = function (type, msg, other, callback) {
 }
 
 var userconfig;
-userconfig = JSON.parse(fs.readFileSync('commands/usersettings/userconfig.json'));
+userconfig = JSON.parse(fs.readFileSync('old-commands/usersettings/userconfig.json'));
 
 methods.saveUserConfig = async function (message, data) {
     console.log(data)
