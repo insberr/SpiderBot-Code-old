@@ -1,7 +1,7 @@
 {
   "bot": {
-    "token": "",
-    "startups": 256,
+    "token": "NjkzNTc0MTQ3NDY0NDk1MTE0.XvLVrw.O54HmvORV2SIxp9C4iXHpWf8ffA",
+    "startups": 413,
     "prefix": "&",
     "activities": [
       "You Will never see this message",
@@ -29,9 +29,6 @@
     }
   },
   "misc": {
-    "embed": {
-      "defaultColor": "#ff0000"
-    },
     "customText": {
       "soon": "No Content"
     }

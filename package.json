@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/SpiderGamin/SpiderBot-Code#readme",
   "dependencies": {
+    "discord-economy": "^1.2.2",
     "discord.js": "^12.2.0",
+    "keyv": "^4.0.1",
     "systeminformation": "^4.26.4"
   }
 }

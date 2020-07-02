@@ -9,10 +9,13 @@ module.exports = {
     usage: '(reason)',
     admin: true,
     async execute(message, args) {
-        await message.client.user.setActivity(`Shutting down`);
+        const stopEmbed = new MessageEmbed()
+            .setColor('#84FFFB')
+            .setTitle(`The bot was stopped by ${message.author.username}`)
+            .setDescription(`Reason: ${args.join(' ')}`)
+            .setTimestamp()
         await message.client.user.setStatus('offline');
-        await message.client.channels.cache.get(logs.logChannel).send(`The bot was stopped by ${message.author.username}: ${args.join(' ')}`);
-        await message.reply(`The bot was stopped: ${args.join(' ')}`)
+        await message.client.channels.cache.get(logs.logChannel).send(stopEmbed);
         console.log(`${message.author.username} shut down the bot: ${args.join(' ')}`)
         await message.client.destroy();
         return process.exit();

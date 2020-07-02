@@ -2,6 +2,8 @@ const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
 var config = JSON.parse(fs.readFileSync('config.json'));
 var prefix = config.bot.prefix, embed = config.misc.embed;
+var userconfig;
+userconfig = JSON.parse(fs.readFileSync('commands/usersettings/userconfig.json'));
 
 module.exports = {
     name: 'calculate',
@@ -11,6 +13,7 @@ module.exports = {
     cooldown: 2,
     usage: '[number 1] [add | + | sub | - | mul | x | div | /] [number 2]',
     async execute(message, args) {
+        var userConfig = userconfig[message.author.id] || userconfig.default;
         let signs = {
         "add": "+",
         "sub": "-",
@@ -59,7 +62,7 @@ module.exports = {
             }
         }
         const calculateEmbed = new MessageEmbed()
-            .setColor(embed.defaultColor)
+            .setColor(userConfig.embed.customColor)
             .setAuthor(message.author.username + ' | Calculation', message.author.displayAvatarURL({
                 dynamic: true,
                 size: 512,

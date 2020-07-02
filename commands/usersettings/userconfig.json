@@ -1,15 +1,28 @@
 {
-  "SpiderGaming": {
-    "UserName": "SpiderGaming",
+  "default": {
+    "UserName": null,
     "userID": null,
     "embed": {
-      "customColor": null,
-      "customInfo": "Hi There, I get early access to this lol."
+      "color": "#ff0000",
+      "info": "None"
     },
     "personal": {
-      "age": 15,
-      "pronouns": "he/him",
-      "bday": "jan-21-2005"
+      "age": "Not Specified",
+      "pronouns": "Unidentified",
+      "bday": "Not Set"
+    }
+  },
+  "656113840597237763": {
+    "userName": "Chaspz",
+    "userID": "656113840597237763",
+    "embed": {
+      "color": "#ff0000",
+      "info": "None"
+    },
+    "personal": {
+      "age": "1",
+      "pronouns": "Unidentified",
+      "bday": "Not Set"
     }
   }
 }

@@ -5,11 +5,11 @@ const client = new Discord.Client({ particls: ['MESSAGE', 'CHANNEL', 'REACTION']
 const { Client, MessageEmbed, Permissions } = require('discord.js');
 // File Management And System Info
 const fs = require('fs');
-const si = require('systeminformation');
+
+// My functions 
+const functions = require('./functions.js');
 
 /** Configuration: File refresh on changes. Set config variables */
-// Ready config variables
-// var bot, activities, prefix, token, admin, logs, embed, customText;
 
 // Set the config files to a variable
 let config = JSON.parse(fs.readFileSync('config.json'));
@@ -20,40 +20,25 @@ fs.watch('config.json', {persistent: false}).on('change', eventType => {
 	if (eventType === 'rename') throw "do not remove, move, or rename the config.json file.";
 	config = JSON.parse(fs.readFileSync('config.json'));
 	console.log(`Config Files Reloaded`);
-	// Re-Set the variables
-	//bot = config.bot;
-	//activities = config.bot.activities;
-	//prefix = config.bot.prefix;
-	//token = config.bot.token;
-	//admin = config.admin;
-	//logs = config.logs;
-	//embed = config.misc.embed; 
-	//customText = config.misc.customText;
+	// Reset the config varuables
 	let {bot, admin, logs, misc} = config, {activities, prefix, token} = bot, {embed, customText} = misc;
 
 });
 let {bot, admin, logs, misc} = config, {activities, prefix, token} = bot, {embed, customText} = misc;
 
-// Set the variables
-//bot = config.bot;
-//activities = config.bot.activities;
-//prefix = config.bot.prefix;
-//token = config.bot.token;
-//admin = config.admin;
-//logs = config.logs;
-//embed = config.misc.embed;
-//customText = config.misc.customText;
 
 // Reload user-config
 fs.watch('commands/usersettings/userconfig.json', {persistent: false}).on('change', eventType => {
 	if (eventType === 'rename') throw "do not remove, move, or rename the userconfig.json file.";
 	userconfig = JSON.parse(fs.readFileSync('commands/usersettings/userconfig.json'));
+	console.log(`UserConfig Files Reloaded`);
 });
 
 
 /* Command files management */
 
 // Command Cooldown
+/*
 const cooldowns = new Discord.Collection();
 
 // Command File Management
@@ -63,97 +48,19 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
+*/
 
 /* Console text formatting variables */
-const color = { 
-	'clear': '\x1b[0m',
-	'bold': '\x1b[1m',
-	'black': '\x1b[30m',
-	'red': '\x1b[31m',
-	'green': '\x1b[32m',
-	'yellow': '\x1b[33m',
-	'blue': '\x1b[34m',
-	'magenta': '\x1b[35m',
-	'cyan': '\x1b[36m',
-	'white': '\x1b[37m',
-	'Bblack': '\x1b[90m',
-	'Bred': '\x1b[91m',
-	'Bgreen': '\x1b[92m',
-	'Byellow': '\x1b[93m',
-	'Bblue': '\x1b[94m',
-	'Bmagenta': '\x1b[95m',
-	'Bcyan': '\x1b[96m',
-	'Bwhite': '\x1b[97m',
-};
+const color = functions.color;
+
 
 /* Misc 'on ready' variables */
 // This counts the number of times the bot is started
 config.bot.startups++;
 
-var adminBotStatus;
-adminBotStatus = (!admin.adminOnly) ? 'Normal Mode' : 'Admin Only';
-var CPUTemp;
-var OSMem;
-
 // When the client (bot) is ready
 client.on('ready', () => {
-	// Say hello in the console when the bot logs in
-	console.log(`${color.Bcyan}Logged in as ${color.bold}${color.red}${client.user.tag}! \n${color.clear}${color.Bcyan}Admin only: ${color.Bblue}${admin.adminOnly}\n${color.cyan}StartUps: ${color.yellow}${bot.startups}${color.clear}`);
-	// Login embeded if set to true in the config.json
-	if (logs.botLoginMessage) {
-		const botLoginEmbed = new MessageEmbed()
-		.setColor('#84FFFB')
-		.setTitle(`SpiderBot Logged In`)
-		.setAuthor(client.user.tag)
-		.setDescription(`Prefix: ${prefix}\nLog Channel: ${logs.logChannel}\nUse Perms: ${admin.adminOnly}`)
-		.setTimestamp()
-		.setFooter('Logged In');
-		return client.channels.cache.get(logs.logChannel).send(botLoginEmbed);
-	}
-
-	// Waiting for the timeout to end for the new status
-	client.user.setActivity(`Starting Bot And awaiting Details`);
-	setInterval(() => {
-		si.cpuTemperature().then(data => CPUTemp = data.max);
-		si.mem().then(data => OSMem = data.used);
-	}, 1000)
-
-	// If the CPU temp gets above 75C, shut off the bot. Dont want to set your pc on fire now do you
-	setInterval(() => {
-		if (CPUTemp > 75) {
-			async function overHeatShutDown() {
-				await client.user.setStatus('invisible')
-				await client.channels.cache.get(logs.logChannel).send(`The host got too hot\nCPU: ${CPUTemp}\u00B0C MEM: ${OSMem}`);
-				console.log(`The host overheated: CPU: ${CPUTemp}\u00B0C MEM: ${OSMem} bytes`);
-				await client.destroy();
-				return process.exit();
-			}
-			overHeatShutDown();
-		}
-	}, 5000);
-	
-	function loginSetActivity() {
-		client.user.setActivity(`Gaining Life | ${prefix}help\n${adminBotStatus} | StartUps: ${bot.startups}`);
-		setInterval(() => {
-			adminBotStatus = (!admin.adminOnly) ? 'Normal Mode' : 'Admin Only';
-			var d = new Date();
-			var a = d.getHours();
-			var b = d.getMinutes();
-			b = b.toString().padStart(2, '0');
-			var time = `${a}:${b}`
-			// Get a random activity text to display (the list of texts is in the config.json)
-			const index = Math.floor(Math.random() * (activities.length - 1) +1);
-			function formatBytes (a, b) {
-				if (a === 0) return '0 Bytes';
-				var c = 1024, d = b||2, e = ["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"], f = Math.floor(Math.log(a) / Math.log(c));
-				OSMem = parseFloat((a / Math.pow(c, f)).toFixed(d)) + ' ' + e[f];
-				// Display the activity
-				client.user.setActivity(`${activities[index]} | ${prefix}help | ${time}\n${adminBotStatus} | StartUps: ${bot.startups}\nCPU: ${CPUTemp}\u00B0C | MEM: ${OSMem}`);
-			}
-			formatBytes(OSMem);
-		}, 10000);
-	}
-	setTimeout(loginSetActivity, 5000);
+	functions.botStartUp(client, config, color);
 });
 
 // When the bot is added to a server
@@ -168,6 +75,15 @@ client.on('guildDelete', guild => {
 
 // When there is a message in a channel
 client.on('message', async message => {
+	if (message.author.bot) return;
+	functions.swearFilter(message, s => {
+		if (s.swearing) message.channel.send({ embed: { title: `Please do not use such offensive words` }});
+		// console.log(s);
+	})
+	functions.commandUse(client, message, config, userconfig, color, cmd => {
+		// console.log(' ')
+	});
+	/*
 	// let userFromGuild = message.client.users.fetch(message.author.id);
 
 	// If the message does not have the prefix, ignore. Test if the user is a bot and ignore
@@ -194,7 +110,7 @@ client.on('message', async message => {
 		return message.reply({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: `You can't use server only commands in the DMs! ` }});
 	}
 
-	/* Check if the command requires arguments. If required, and no were provided, tell the user the usage */
+	// Check if the command requires arguments. If required, and no were provided, tell the user the usage
 	if (command.args && !args.length) {
 		let reply = `You didn't provide any arguments,`;
 		if (command.usage) {
@@ -228,10 +144,10 @@ client.on('message', async message => {
 	if (!admin.adminOnly) {
 		if (command.admin) {
 			if (message.channel.type !== 'text') {
-				return message.reply({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: `You cant use admin commands in the DMs (it crashes the bot, which is better than people being able to use them in DMs)` }});
+				return message.reply({ embed: { color: userconfig[message.author.username].embed.customColor, title: `You cant use admin commands in the DMs (it crashes the bot, which is better than people being able to use them in DMs)` }});
 			}
 			if (message.member.hasPermission(Permissions.FLAGS.ADMINISTRATOR) !== true) {
-				return message.channel.send({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: 'That command is admin only' }});
+				return message.channel.send({ embed: { color: userconfig[message.author.username].embed.customColor, title: 'That command is admin only' }});
 			}
 		}
 	} else {
@@ -247,6 +163,7 @@ client.on('message', async message => {
 		console.error(error);
 		message.channel.send({ embed: { color: userconfig[message.author.username].embed.customColor || embed.defaultColor, title: `There was an error using ${command}\nArgs: ${args.join(' ')}` }});
 	}
+	*/
 });
 
 client.on('messageReactionAdd', async (reaction, user) => {

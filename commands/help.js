@@ -10,6 +10,7 @@ module.exports = {
 	aliases: ['commands', 'h'],
 	usage: '(command name)',
 	async execute(message, args) {
+		userconfig = userconfig[message.author.username] || userconfig.default;
 		const data = [];
 		const { commands } = message.client;
 
@@ -18,7 +19,7 @@ module.exports = {
 			data.push(commands.map(command => command.name).join(',\n'));
 			data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
 			const helpDMEmbed = new MessageEmbed()
-				.setColor(embed.defaultColor)
+				.setColor(userconfig.embed.customColor)
 				.setAuthor(message.author.username)
 				.setTitle(`Help`)
 				.setDescription(data)
@@ -42,7 +43,7 @@ module.exports = {
 			}
 
 			const helpCommandEmbed = new MessageEmbed()
-				.setColor(userconfig[message.author.username].embed.customColor || embed.defaultColor)
+				.setColor(userconfig.embed.customColor)
 				.setAuthor(message.author.username)
 				.setTitle(`Help ${command.name}`)
 				if (command.aliases) {
