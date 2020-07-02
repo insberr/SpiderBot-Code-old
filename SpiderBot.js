@@ -1,5 +1,6 @@
 /* eslint-disable no-inner-declarations */
 /** Import Discord.js and the other needed modules */
+require('colors')
 const Discord = require('discord.js');
 const client = new Discord.Client({ particls: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const { Client, MessageEmbed, Permissions } = require('discord.js');
