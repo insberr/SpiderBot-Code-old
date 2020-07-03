@@ -38,7 +38,8 @@ module.exports = class MeowCommand extends Command {
                     format: "png"
                 }),
             },
-            title: `Your message was sucessfully sent to the host; "${toSend}"`,
+            title: `Successfully sent to host`,
+            description: `${toSend}`,
         }
         return message.embed(sendEmbed);
     }

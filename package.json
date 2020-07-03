@@ -24,7 +24,9 @@
     "discord.js-commando": "github:discordjs/Commando",
     "dotenv": "^8.2.0",
     "keyv": "^4.0.1",
+    "sequelize": "^6.2.4",
     "sqlite": "^4.0.11",
+    "sqlite3": "^5.0.0",
     "systeminformation": "^4.26.4",
     "winston": "^3.3.3"
   }

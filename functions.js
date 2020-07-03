@@ -1,8 +1,78 @@
-const Discord = require('discord.js')
-const { Permissions, MessageEmbed } = require('discord.js');
+const client = require('discord.js-commando')
 const fs = require('fs');
+const Sequelize = require('sequelize');
+
+const botConfigDB = new Sequelize('database', 'username', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	// SQLite only
+	storage: 'botconfig.sqlite',
+});
+
+const botConfig = botConfigDB.define('tags', {
+	server: {
+		type: Sequelize.STRING,
+		unique: true,
+	},
+	prefix: {
+        type: Sequelize.TEXT,
+        defaultValue: '&',
+        allowNull: false,
+    },
+	logChannel: Sequelize.STRING,
+    noUseChannels: Sequelize.ARRAY,
+    noLevelChannels: Sequelize.ARRAY,
+    muteRole: Sequelize.STRING,
+    rank: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	},
+});
+
+const userConfigDB = new Sequelize('database', 'username', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	// SQLite only
+	storage: 'userconfig.sqlite',
+});
+const userConfig = userConfigDB.define('tags', {
+    userID: {
+        type: Sequelize.STRING,
+        unique: true,
+    },
+    color: {
+        type: Sequelize.STRING,
+        defaultValue: '#ff0000',
+        allowNull: false,
+    },
+    age: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+    },
+    pronoun: {
+        type: Sequelize.STRING,
+        defaultValue: 'None',
+        allowNull: false,
+    },
+    description: {
+        type: Sequelize.TEXT,
+        defaultValue: 'None',
+        allowNull: false,
+    },
+});
+
 
 var methods = {};
+
+methods.getData = async function (DB, tagName, data) {
+    const tag = await [DB].findOne({ where: { name: tagName } });
+    return data(tag);
+}
+
 
 methods.color = {
     'clear': '\x1b[0m',
@@ -25,7 +95,8 @@ methods.color = {
     'Bwhite': '\x1b[97m',
 };
 
-methods.botStartUp = async function (client, config, color) {
+methods.botStartUp = async function () {
+    botConfig.sync();
     let { bot, admin, logs, misc } = config, { activities, prefix, token } = bot, { embed, customText } = misc;
     var adminBotStatus = (!config.admin.adminOnly) ? 'Normal Mode' : 'Admin Only';
     // Say hello in the console when the bot logs in
