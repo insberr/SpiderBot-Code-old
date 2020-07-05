@@ -19,17 +19,6 @@
   },
   "admin": {
     "adminOnly": false,
-    "adminOnlyReason": null,
-    "adminsofbot": [
-      "523826395801976842"
-    ],
-    "adminCommands": {
-      "embed": true
-    }
-  },
-  "misc": {
-    "customText": {
-      "soon": "No Content"
-    }
+    "adminOnlyReason": null
   }
 }

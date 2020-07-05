@@ -2,40 +2,8 @@ const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const winston = require('winston');
 require('dotenv').config();
-
-
-
-const Sequelize = require('sequelize');
-const PREFIX = '!';
-
-/*
- * Make sure you are on at least version 5 of Sequelize! Version 4 as used in this guide will pose a security threat.
- * You can read more about this issue On the [Sequelize issue tracker](https://github.com/sequelize/sequelize/issues/7310).
- */
-
-const sequelize = new Sequelize('database', 'username', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	logging: false,
-	// SQLite only
-	storage: 'database.sqlite',
-});
-
-const Tags = sequelize.define('tags', {
-	name: {
-		type: Sequelize.STRING,
-		unique: true,
-	},
-	description: Sequelize.TEXT,
-	username: Sequelize.STRING,
-	usage_count: {
-		type: Sequelize.INTEGER,
-		defaultValue: 0,
-		allowNull: false,
-	},
-});
-
-
+var token = process.env.BOT_TOKEN;
+client.login(token)
 
 
 const client = new CommandoClient({
@@ -51,13 +19,6 @@ const logger = winston.createLogger({
 	],
 	format: winston.format.printf(log => `[${log.level.toUpperCase()}] ${log.message}`),
 });
-
-
-const sqlite = require('sqlite');
-client.setProvider(
-    sqlite.open(path.join(__dirname, 'settings.sqlite3')).then(db => new Commando.SQLiteProvider(db))
-).catch(console.error);
-
 
 client.registry
 	.registerDefaultTypes()
@@ -88,6 +49,22 @@ client.once('ready', () => {
 client.on('error', m => logger.log('error', m));
 
 
+
+
+const PREFIX = '&';
+const Tags = sequelize.define('tags', {
+	name: {
+		type: Sequelize.STRING,
+		unique: true,
+	},
+	description: Sequelize.TEXT,
+	username: Sequelize.STRING,
+	usage_count: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	},
+});
 
 client.on('message', async message => {
 	if (message.content.startsWith(PREFIX)) {
@@ -163,5 +140,3 @@ client.on('message', async message => {
 
 
 
-var token = process.env.BOT_TOKEN;
-client.login(token)

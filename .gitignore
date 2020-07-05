@@ -1,5 +1,6 @@
-/OldFiles
+oldfiles
 database.sqlite
-/node_modules
-/Logs
+node_modules
+logs
 .env
+log

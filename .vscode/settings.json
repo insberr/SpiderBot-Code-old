@@ -3,5 +3,4 @@
     "editor.fontWeight": "500",
     "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss05', 'ss06', 'zero'",
     "editor.fontSize": 15,
-    "discord.enabled": true,
 }
