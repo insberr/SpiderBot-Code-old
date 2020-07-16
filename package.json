@@ -1,6 +1,6 @@
 {
   "name": "spiderbot-code",
-  "version": "2",
+  "version": "0.0.2",
   "description": "Discord Bot using discord.js, welcome SpiderBot!",
   "main": "SpiderBot.js",
   "scripts": {

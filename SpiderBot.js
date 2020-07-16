@@ -3,7 +3,7 @@ const path = require('path');
 const winston = require('winston');
 require('dotenv').config();
 var token = process.env.BOT_TOKEN;
-client.login(token)
+
 
 
 const client = new CommandoClient({
@@ -41,16 +41,15 @@ client.registry
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.once('ready', () => {
-    Tags.sync();
 	logger.log('info', `Logged in as ${client.user.tag}`);
 	client.user.setActivity('with Commando');
 });
 
 client.on('error', m => logger.log('error', m));
+client.login(token)
 
 
-
-
+/*
 const PREFIX = '&';
 const Tags = sequelize.define('tags', {
 	name: {
@@ -139,4 +138,5 @@ client.on('message', async message => {
 });
 
 
+*/
 
