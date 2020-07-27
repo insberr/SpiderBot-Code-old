@@ -5,7 +5,7 @@ module.exports = class MeowCommand extends Command {
         super(client, {
             name: 'say',
             aliases: ['parrot', 'copy'],
-            group: 'testing',
+            group: 'test',
             memberName: 'say',
             description: 'Replies with the text you provide.',
             args: [

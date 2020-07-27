@@ -5,7 +5,7 @@ module.exports = class MeowCommand extends Command {
         super(client, {
             name: 'meow',
             aliases: ['kitty-cat'],
-            group: 'testing',
+            group: 'test',
             memberName: 'meow',
             description: 'Replies with meow, Kitty cat.',
             guildOnly: true,

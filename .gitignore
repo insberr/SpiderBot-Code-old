@@ -1,5 +1,5 @@
 oldfiles
-database.sqlite
+database
 node_modules
-logs
+log.txt
 .env

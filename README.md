@@ -1,12 +1,14 @@
 # SpiderBot-Code
-The bot is still being developed, and has a long way till It's done. The bots main function is to replace all the bots on my server. Or the world hahahahhahah.
+The bot is still being developed, and has a long way till It's done. The bots main function is to replace all the bots on my server.
 
 [comment]: <> (Invite the bot to your server)
 
-NOTICE: This bot was made to be used on multiple servers, use the invite link here to invite the bot to your server. The code is only here for people who are interested in how it was coded, use for referance, or to report/fix a bug.
+NOTICE: This bot is being made to be used on multiple servers, an invite link will be provided here soon, once the bot has some actual use. 
 
 
-# Fetures
+This bot is under heavy development and the code is messy right now. I am learning how to use databases for the bot.
+
+# Features
 - Swear filter
 - Fully customizable config
 - Moderation
@@ -29,19 +31,12 @@ Run `npm start` or `node SpiderBot.js` to start the bot.
 It will display a message saying the bot has started.
 
 ## Bot Usage
-The default prefix is `&` and can be changed in the `config.json`
+The default prefix is `&`
 
 The bots commands and their usage can be found here <a href="">documentation</a> (Coming soon)
 
 
-## Future Plans
-* [ ] Use mathjs for the calculation command
-* [ ] Make locally hosted web UI for easy configuring
-
-
-
-
-## Resurces Used
+## Resources Used
 How I learned how to make a bot - https://discordjs.guide/
 
 Learn JavaScript - [w3.schools.com](w3.schools.com)

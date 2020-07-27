@@ -13,7 +13,7 @@ module.exports = class MeowCommand extends Command {
         super(client, {
             name: 'send',
             aliases: ['terminal'],
-            group: 'developement',
+            group: 'dev',
             memberName: 'send',
             description: 'Sends the text to the hosts console.',
             args: [
