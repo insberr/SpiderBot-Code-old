@@ -5,16 +5,6 @@ require('dotenv').config();
 const f = require('./f.js');
 const { BOT_TOKEN } = process.env;
 
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 5000;
-app.get('/', (req, res) {
-	res.send('working');
-});
-app.listen(PORT, () {
-	console.log('started');
-});
-
 const client = new CommandoClient({
 	commandPrefix: '&',
 	owner: '523826395801976842',
