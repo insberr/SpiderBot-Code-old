@@ -1,1 +1,1 @@
-web: node SpiderBot.js
+worker: node SpiderBot.js
