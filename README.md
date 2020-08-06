@@ -1,6 +1,7 @@
 # SpiderBot-Code
 The bot is still being developed, and has a long way till It's done. The bots main function is to replace all the bots on my server.
 
+[SpiderBot Help Server](https://discord.gg/6kFYJAP)
 [comment]: <> (Invite the bot to your server)
 
 NOTICE: This bot is being made to be used on multiple servers, an invite link will be provided here soon, once the bot has some actual use. 
