@@ -47,7 +47,7 @@ The bots commands and their usage can be found here <a href="">documentation</a>
 
 
 ## Resources Used
-[Discord.js Guid](https://discordjs.guide/)
+[Discord.js Guide](https://discordjs.guide/)
 
 [Discord.js Documentation](https://discord.js.org/?source=post_page---------------------------#/docs/main/stable/general/welcome)
 
