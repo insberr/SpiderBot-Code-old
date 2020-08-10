@@ -1,3 +1,5 @@
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/SpiderGamin/SpiderBot-Code.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/SpiderGamin/SpiderBot-Code/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/SpiderGamin/SpiderBot-Code.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/SpiderGamin/SpiderBot-Code/context:javascript)
 # SpiderBot-Code
 Spiderbot, Made to do everything, free, forever. (Of course the bot does nothing right now, I'm developing it)
 
