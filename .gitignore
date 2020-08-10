@@ -1,5 +1,4 @@
-oldfiles
-database
 node_modules
-log.txt
 .env
+src/config/database.sqlite
+/OLD/

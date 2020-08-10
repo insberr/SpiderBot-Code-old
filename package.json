@@ -1,34 +1,30 @@
 {
   "name": "spiderbot-code",
-  "version": "0.0.2",
-  "description": "Discord Bot using discord.js, welcome SpiderBot!",
-  "main": "SpiderBot.js",
+  "version": "0.0.3",
+  "description": "SpiderBot try 2. SpiderBot made to do everything, free, forever.",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "sequelize": "^6.3.4",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
-    "start": "node SpiderBot.js",
-    "test": "node SpiderBot.js"
+    "test": "node index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SpiderGamin/SpiderBot-Code.git"
+    "url": "git+https://github.com/spidergamin/SpiderBot-Code.git"
   },
-  "keywords": [],
+  "keywords": [
+    "spiderbot"
+  ],
   "author": "SpiderGamin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SpiderGamin/SpiderBot-Code/issues"
+    "url": "https://github.com/spidergamin/SpiderBot-Code/issues"
   },
-  "homepage": "https://github.com/SpiderGamin/SpiderBot-Code#readme",
-  "dependencies": {
-    "@types/better-sqlite3": "^5.4.0",
-    "better-sqlite3": "^7.1.0",
-    "chalk": "^4.1.0",
-    "discord.js": "^12.2.0",
-    "discord.js-commando": "github:discordjs/Commando",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "sequelize": "^6.3.3",
-    "sqlite": "^3.0.6",
-    "sqlite3": "^5.0.0",
-    "winston": "^3.3.3"
-  }
+  "homepage": "https://github.com/spidergamin/SpiderBot-Code#readme"
 }

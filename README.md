@@ -1,5 +1,11 @@
 # SpiderBot-Code
-The bot is still being developed, and has a long way till It's done. The bots main function is to replace all the bots on my server.
+Spiderbot, Made to do everything, free, forever. (Of course the bot does nothing right now, I'm developing it)
+
+The bot is still being developed, and has a long way till It's done.
+
+Original plan: Replace all the bots on my Discord server
+
+New plan: Replace all the bots onn Discord (jk, but it helps the slogan ok)
 
 [SpiderBot Help Server](https://discord.gg/6kFYJAP)
 
@@ -8,13 +14,13 @@ The bot is still being developed, and has a long way till It's done. The bots ma
 NOTICE: This bot is being made to be used on multiple servers, an invite link will be provided here soon, once the bot has some actual use. 
 
 
-This bot is under heavy development and the code is messy right now. I am learning how to use databases for the bot.
+This bot is under heavy development and the code is **A little** messy right now.
 
-# Features
+# Planned Features
 - Swear filter
-- Fully customizable config
+- Fully customizable guild and user config
 - Moderation
-- Economy game
+- Games, including economy
 - Leveling roles
 - Other fun stuff
 - And much more!
@@ -29,7 +35,9 @@ Run `npm install` to install the needed packages
 
 Create a file named `.env` and add the bots token after `TOKEN=` (Ex: `TOKEN=Nahwdgaaddawf`)
 
-Run `npm start` or `node SpiderBot.js` to start the bot.
+Rename the file `database.example.sqlite` in the config folder to `database.sqlite`
+
+Run `npm start` or `node index.js` to start the bot.
 It will display a message saying the bot has started.
 
 ## Bot Usage
@@ -39,13 +47,11 @@ The bots commands and their usage can be found here <a href="">documentation</a>
 
 
 ## Resources Used
-How I learned how to make a bot - https://discordjs.guide/
-
-Learn JavaScript - [w3.schools.com](w3.schools.com)
+[Discord.js Guid](https://discordjs.guide/)
 
 [Discord.js Documentation](https://discord.js.org/?source=post_page---------------------------#/docs/main/stable/general/welcome)
 
-Discord.js discord server - https://discord.gg/bRCvFy9
+[Discord.js discord server](https://discord.gg/bRCvFy9)
 
 
 ## Credits
@@ -57,4 +63,8 @@ Discord.js discord server - https://discord.gg/bRCvFy9
 - The config file reload
 
 
-The people of my discord server, who had to put up with the bots annoying spam issues
+The people of my discord server, who had to put up with the bots annoying spam issues*
+
+
+
+__I'm still trying to find a good, free, hosting option for this bot (thats not using my raspberry pi)__
